@@ -5,8 +5,18 @@
  *      Author: mark2v
  */
 
+#include <stdio.h>
+
+#include "include/deref.h"
+#include "include/strings.h"
+
 int main() {
 
+//	doStr();
+
+//	derefInt();
+
+	pointerStuff();
 
 	return 0;
 }
