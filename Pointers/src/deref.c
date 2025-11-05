@@ -23,7 +23,7 @@ void pointerStuff() {
 	char* str = "abcd";
 //	char str[] = "abcd";
 
-	// Without the newline it will run on for a while.
+	// Without the newline it will run on for a while until one is reached.
 //	char str[] = {'a', 'b', 'c', 'd'};
 //	char str[] = {'a', 'b', 'c', 'd', '\0'};
 
@@ -39,19 +39,19 @@ void pointerStuff() {
 	printf("str[0]: %c\n", str[0]);
 
 	// Print the first item in the str array via dereferencing the string at index 0.
-	printf("str[0]: %c\n", *str);
+	printf("*str: %c\n", *str);
 
-	// Print the second item in the str array via dereferencing the string ar index 1.
-	printf("str[1]: %c\n", (*str + 1));
+	// Print the second item in the str array via dereferencing the string at index 1.
+	printf("(*str + 1): %c\n", (*str + 1));
 
 	// Print the address of the second item in the array.
-	printf("str[1]: %p\n", (str + 1));
+	printf("str + 1: \t\t%p\n", (str + 1));
 
 	// Create a new pointer to the second item in the array.
 	char* secondPtr = str + 1;
 
-	printf("str ptr (again): %p\n", str);
-	printf("secondPtr: %p\n", secondPtr);
+	printf("str ptr (again): \t%p\n", str);
+	printf("secondPtr (str + 1): \t%p\n", secondPtr);
 
 	for (int i = 0; i < strlen(str); i++) {
 		printf("For Loop [%d]: %c Address: %p\n", i, (*str + i), (str + i));
