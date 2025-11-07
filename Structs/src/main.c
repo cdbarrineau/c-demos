@@ -32,7 +32,7 @@ int main() {
 	// on the struct after it returns--it's the initial values from above.
 	printf("Address of p: %p\n", &p);
 	add_one_pass_by_value(p);
-	printf("(1) x=%d, y=%d, z=%d\n", p.x, p.y, p.z);
+	printf("Values do not change: x=%d, y=%d, z=%d\n\n", p.x, p.y, p.z);
 
 	// Since the function is pass by value the returned address will
 	// be different because it creates a copy of the returned value
@@ -42,9 +42,26 @@ int main() {
 	// p will not be modified.
 	point p2 = add_one_pass_by_value(p);
 	printf("Address of returned p2: %p\n", &p2);
-	printf("(2) x=%d, y=%d, z=%d\n", p2.x, p2.y, p2.z);
+	printf("PBV values no not change: x=%d, y=%d, z=%d\n", p.x, p.y, p.z);
+	printf("Returned point values changed: x=%d, y=%d, z=%d\n\n", p2.x, p2.y, p2.z);
 
-//	add_one_pass_by_ref(&p);
+	// Passing by reference.  Address of p will be the same after the
+	// call returns and the updates to the x, y, & z will be set to
+	// what the function set them to.
+	add_one_pass_by_ref(&p);
+	printf("Address of p (again): %p\n", &p);
+	printf("PBR values changed: x=%d, y=%d, z=%d\n\n", p2.x, p2.y, p2.z);
+
+	// Modify p2.  Even though it was returned as the arg of p, this will
+	// not change p because the compiler made of copy when returning the
+	// passed in point, p.
+	p2.x = 1;
+	p2.y = 2;
+	p2.z = 3;
+
+	printf("Modified return p2. Original p is unmodified: x=%d, y=%d, z=%d\n", p.x, p.y, p.z);
+	printf("Modified return p2. Point values changed: x=%d, y=%d, z=%d\n\n", p2.x, p2.y, p2.z);
+
 
 //	printf("(3) x=%d, y=%d, z=%d\n", p.x, p.y, p.z);
 
@@ -54,7 +71,13 @@ int main() {
 
 	point pc = create(1, 2, 3);
 	printf("Address of created pc: %p\n", &pc);
-	printf("(3) x=%d, y=%d, z=%d\n", pc.x, pc.y, pc.z);
+//	printf("(3) x=%d, y=%d, z=%d\n\n", pc.x, pc.y, pc.z);
+
+//	printf("short: %d bytes\n", sizeof(short));
+//	printf("long: %d bytes\n", sizeof(long));
+//	printf("long long: %d bytes\n", sizeof(long long));
+//	printf("double: %d bytes\n", sizeof(double));
+
 
 	return 0;
 }
