@@ -9,51 +9,10 @@
 #include <string.h>
 
 /*
- * IMPORTANT: Shifting by a negative number or a number greater than bit
- * 			  width is undefined!
- *
- * 			  Also, all vacant bits are filled in by 0.
- *
- * 			  *** 1 << 0 = 1 because x^1 == 1 ***
- *
- *
- *
- * Left shift effectively multiplies a number by 2 (raised to the number
- * 	of bits to shift).
- *
- * Used to create bit masks.  Bit masks are used to isolate, set, or clear
- * 	specific bits in a binary number.
- *
- * *** a << n === a * (2^n)
- * 	Where:
- * 		a: The number whose bits to shift.
- * 		b: The number of places to shift (e.g. 1 is shift 1 place, 2 is shift two places).
- *
- *
- *
- * 	This example can see that multiplying by 2 not only gives 10 but also shifts
- *	the bits by one to the left:
- * 		5 (0101) : 5 << 1 = 10 (1010)  or 5 * (2^1)
- *
- * 	Another example, shift bit in 5 three places:
- * 		5 (0101) << 3 = 40 (101000) or 5 * (2^3)
- *
- *
- * Right shift effectively divides by 2.
- *	Example: 20 (10100) 20 >> 2 = 5 (1010)
- *
- *	*** a >> n === a / (2^n)
- *
- *
- * result = value << positions:
- * 		r = 1 << 3 Shifts the bits in 1 by 3 positions.
- *		1 << 3 = 1000  Creates a mask with the 4th bit set.
- *
- *
  *
  */
 
-char* get_mask(int mask) {
+char* get_bit_str(int mask) {
 	int len = sizeof(int);
 	char* buf = (char*)malloc(len);
 
@@ -80,7 +39,7 @@ void print_int_bits(int num) {
 	for (int i = len - 1; i >= 0; i--) {
 		int mask = 1 << i;
 
-		char* mask_str = get_mask(mask);
+		char* mask_str = get_bit_str(mask);
 
 		printf("Mask of 1 << %d: %s (decimal = %d) ( 1 * 2^%d = %d)\n", i, mask_str, mask, i, mask);
 
@@ -102,7 +61,33 @@ void print_int_bits(int num) {
 	free(buf);
 }
 
+void bit_mask(int value, int num_to_shift) {
+
+	char* num_to_shift_bits = get_bit_str(num_to_shift);
+	printf("Num to shift: %d (binary): %s\n", num_to_shift, num_to_shift_bits);
+	free(num_to_shift_bits);
+
+	int mask = 1 << num_to_shift;
+	char* mask_bits = get_bit_str(mask);
+	printf("Mask of (1 << %d): %s\n", num_to_shift, mask_bits);
+	free(mask_bits);
+
+	char* value_bits = get_bit_str(value);
+	printf("Value bits of %d: %s\n", value, value_bits);
+	free(value_bits);
+
+	int result = value & mask;
+
+	char* result_bits = get_bit_str(result);
+	printf("Result: %s\n", result_bits);
+	free(result_bits);
+
+}
+
 int main() {
+
+	// printf("num to shift: %d value to mask: %d\n", 3, 5);
+	bit_mask(5, 3);
 
 //	print_int_bits(-1);
 //
@@ -110,7 +95,7 @@ int main() {
 //
 //	print_int_bits(0);
 
-	print_int_bits(1);
+//	print_int_bits(1);
 
 //	print_int_bits(2);
 //
