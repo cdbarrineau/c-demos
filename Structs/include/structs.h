@@ -74,6 +74,6 @@ point* add_one_pass_by_ref(point* p);
  */
 point create(int x, int y, int z);
 
-
+point* create_ptr();
 
 #endif /* INCLUDE_STRUCTS_H_ */

@@ -14,11 +14,22 @@
  *
  * 			  Also, all vacant bits are filled in by 0.
  *
- * Left shift effectively multiplies a number by 2.
+ * 			  *** 1 << 0 = 1 because x^1 == 1 ***
+ *
+ *
+ *
+ * Left shift effectively multiplies a number by 2 (raised to the number
+ * 	of bits to shift).
+ *
+ * Used to create bit masks.  Bit masks are used to isolate, set, or clear
+ * 	specific bits in a binary number.
  *
  * *** a << n === a * (2^n)
+ * 	Where:
+ * 		a: The number whose bits to shift.
+ * 		b: The number of places to shift (e.g. 1 is shift 1 place, 2 is shift two places).
  *
- * *** 1 << 0 = 1 because x^1 == 1 ***
+ *
  *
  * 	This example can see that multiplying by 2 not only gives 10 but also shifts
  *	the bits by one to the left:
@@ -28,15 +39,16 @@
  * 		5 (0101) << 3 = 40 (101000) or 5 * (2^3)
  *
  *
- * Right shift effectively multiplies a divides by 2.
+ * Right shift effectively divides by 2.
  *	Example: 20 (10100) 20 >> 2 = 5 (1010)
  *
- *
+ *	*** a >> n === a / (2^n)
  *
  *
  * result = value << positions:
  * 		r = 1 << 3 Shifts the bits in 1 by 3 positions.
  *		1 << 3 = 1000  Creates a mask with the 4th bit set.
+ *
  *
  *
  */

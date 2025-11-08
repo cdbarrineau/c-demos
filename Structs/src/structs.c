@@ -5,6 +5,7 @@
  *      Author: mark2v
  */
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "../include/structs.h"
 
@@ -92,6 +93,17 @@ point create(int x, int y, int z) {
 	p.x = x;
 	p.y = y;
 	p.z = z;
+
+	return p;
+}
+
+point* create_ptr() {
+	point* p = (point*)malloc(sizeof(point));
+	p->x = 10;
+	p->y = 11;
+	p->z = 12;
+
+	printf("Address of create_ptr(): %p\n", p);
 
 	return p;
 }

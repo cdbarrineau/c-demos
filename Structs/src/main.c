@@ -5,6 +5,7 @@
  *      Author: mark2v
  */
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "../include/structs.h"
 
@@ -70,7 +71,7 @@ int main() {
 //	printf("Address of p2: %p\n", &p2);
 
 	point pc = create(1, 2, 3);
-	printf("Address of created pc: %p\n", &pc);
+	printf("Address of created pc: %p\n\n", &pc);
 //	printf("(3) x=%d, y=%d, z=%d\n\n", pc.x, pc.y, pc.z);
 
 //	printf("short: %d bytes\n", sizeof(short));
@@ -78,6 +79,12 @@ int main() {
 //	printf("long long: %d bytes\n", sizeof(long long));
 //	printf("double: %d bytes\n", sizeof(double));
 
+
+	point* ptr_to_point = create_ptr();
+	printf("Address of ptr_to_point: %p\n", ptr_to_point);
+	printf("ptr_to_point: x=%d, y=%d, z=%d\n\n", ptr_to_point->x, ptr_to_point->y, ptr_to_point->z);
+
+	free(ptr_to_point);
 
 	return 0;
 }
