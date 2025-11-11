@@ -30,18 +30,20 @@ char* get_bit_str(int num, int num_bits) {
 	num_bits = num_bits > 0 ? num_bits : sizeof(int);
 
 	// Allocate enough memory for the number of bits including room for NULL.
-	char* buf = (char*)malloc((num_bits + 1));
+	char* buf = (char*)malloc(num_bits + 1);
+	*buf = 0;
 
 	if (!buf) {
 		printf("\nMemory allocation failed !\n");
-		return "";
+		return NULL;
 	}
 
-	// Start at least significant bit.
-	for (int i = num_bits - 1; i >= 0; i--) {
-		char bit = (num & (1 << i)) ? '1' : '0';
+	for (int i = 0; i < num_bits; i++) {
+		char bit = (num & (1 << i)) ? '1' : '0';;
 
-		buf[i] = bit;
+		// Here we want to but the least significant bit at the other end of
+		// the array.  This is effectively swapping the array positions.
+		buf[num_bits - 1 - i] = bit;
 	}
 
 	// Remember to append the NULL char.
@@ -52,6 +54,9 @@ char* get_bit_str(int num, int num_bits) {
 //	// XXX: This no worky worky...
 //	// When having multiple malloc'd string it eventually
 //	// get garbage.  Not too sure why...
+	// s/malloc/calloc - strcat scans its left operand until
+	// it finds a null terminator, and malloc returns uninitialized
+	// memory, so it can easily overrun the buffer.
 //
 //	num_bits = num_bits > 0 ? num_bits : sizeof(int);
 //
@@ -93,6 +98,25 @@ void print_bit_set(int pos, int num, bool is_bit_set, char* num_bit_str) {
 	}
 	else {
 		printf("Bit at position (index) %d of num %d is NOT set.  Num: %s\n", pos, num, num_bit_str);
+	}
+}
+
+/***********************************************************************
+ * NAME:		test_get_bit_loop()
+ *
+ * DESCRIPTION:	Tests the get_bit_str function looping over 0-15 (0000 - 1111).
+ *
+ * INPUTS:		None.
+ *
+ * OUTPUTS:		None.
+ */
+void test_get_bit_loop() {
+	for (int i = 0; i < 16; i++) {
+		char* bits = get_bit_str(i, 4);
+
+		printf("i = %d bits: %s\n", i, bits);
+
+		free(bits);
 	}
 }
 

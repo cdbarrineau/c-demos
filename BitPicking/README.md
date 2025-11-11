@@ -81,6 +81,7 @@ Where:
 #### Bit Masking
 Use tilde operator, will invert all bits.
  * ~0 (0000) == 1111
+ * ~(1 << 0) == 0111
 
 
 #### Clear a bit ** (use Masking for this): **

@@ -53,6 +53,17 @@ void run_invert_bits_test() {
 
 	free(num_to_mask_str);
 	free(mask_str);
+
+	// Try the mask of 4.
+	num_to_mask = 4;
+	num_to_mask_str = get_bit_str(num_to_mask, 4);
+
+	mask = ~num_to_mask;
+	mask_str = get_bit_str(mask, 4);
+	printf("Mask of %s (%d) is %s (%d)\n", num_to_mask_str, num_to_mask, mask_str, mask);
+
+	free(num_to_mask_str);
+	free(mask_str);
 }
 
 /***********************************************************************
@@ -69,40 +80,42 @@ void run_clear_bit_test() {
 
 	printf(BANNER, "run_clear_bit_test()");
 
-//	int bit_pos = 0;
+	int shift = 1 << 0;
+	char* shift_str = get_bit_str(shift, 4);
+	printf("Shifted (1 << %d) = %s\n", 0, shift_str);
+	free(shift_str);
+
+
+	int bit_pos = 0;
 
 	// ***  ~ is NOT operator that inverts each bit ***
 	// Masking bit 0 in 1 will result in 1110 because ~ inverts all bits.
 	// so ~0 === 1111
 	// then left shift by one bit position is 1110
-//	char* str = get_bit_str((~0), 4);
-//	printf("~0: %s\n", str);
-//	free(str);
+	char* str = get_bit_str((~0), 4);
+	printf("Inverted zero: (~0): %s\n", str);
+	free(str);
 
-//	int mask = ~(1 << bit_pos);
-//	char* mask_str = get_bit_str(mask, 4);
-//
-//	printf("Mask of bit_pos: %d is %s", bit_pos, mask_str);
+	int mask = ~(1 << bit_pos);
+	char* mask_str = get_bit_str(mask, 4);
 
+	printf("Mask at bit pos %d : ~(1 << %d) is %s (%d)\n", bit_pos, bit_pos, mask_str, mask);
 
+	int num = 1;
+	char* num_str = get_bit_str(num, 4);
 
-//	printf("mask at bit pos %d : ~(1 << %d) is %s (%d)\n", bit_pos, bit_pos, mask_str, mask);
-//
-//	int num = 1;
-//	char* num_str = get_bit_str(num, 4);
-//
-//	printf("num %d : %s\n", num, num_str);
-//
-//	int value = num & mask;
-//	char* value_str = get_bit_str(value, 4);
-//
-//	printf("clear bit value (num & mask) (%d & %d) is %s\n", num, mask, value_str);
-//
-//	// result = num & mask:
-//	// result = num & ( ~(1 << 0) )
-//	printf("Result bits: %s ( ~(1 << %s) )\n", value_str, mask_str);
-//
-//	free(num_str);
-//	free(mask_str);
-//	free(value_str);
+	printf("num %d : %s\n", num, num_str);
+
+	int value = num & mask;
+	char* value_str = get_bit_str(value, 4);
+
+	printf("clear bit value (num & mask) (%d & %d) is %s\n", num, mask, value_str);
+
+	// result = num & mask:
+	// result = num & ( ~(1 << 0) )
+	printf("Result bits: %s ( ~(1 << %s) )\n", value_str, mask_str);
+
+	free(num_str);
+	free(mask_str);
+	free(value_str);
 }

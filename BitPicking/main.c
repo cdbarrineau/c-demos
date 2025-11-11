@@ -16,7 +16,7 @@
 
 int main() {
 
-	test_get_bit_str();
+//	test_get_bit_str();
 
 //	run_shift_bit_test();
 
@@ -25,9 +25,8 @@ int main() {
 //	run_set_bit_test();
 
 
-
-//	run_invert_bits_test();
-//	run_clear_bit_test();
+	run_invert_bits_test();
+	run_clear_bit_test();
 
 
 
