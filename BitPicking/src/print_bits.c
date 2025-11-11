@@ -11,8 +11,6 @@
 #include "../include/print_bits.h"
 #include "../include/bit_utils.h"
 
-#define BANNER "\n***********  %s  ***********\n"
-
 
 /***********************************************************************
  * NAME:		print_int_bits(int)
@@ -129,40 +127,6 @@ void shift_bits_loop() {
 	}
 }
 
-/***********************************************************************
- * NAME:		set_bit(int, int)
- *
- * DESCRIPTION:	Sets the bit at position pos in the specified number.
- *
- * INPUTS:		pos The bit position in num to set.
- *              num The number to get the bit representation.
- *
- */
-void set_bit(int pos, int num) {
-	printf(BANNER, "set_bit(pos, num)");
-
-	printf("Setting bit in position %d in number %d\n", pos, num);
-
-	// For num, here == 1 so we get 0001.
-	char* num_bits = get_bit_str(num, 4);
-	printf("num %d in binary: %s\n", num, num_bits);
-	free(num_bits);
-
-	// For result we're shifting 1 n = 3 places (n + 1) as we get 1000
-	char* shift = get_bit_str(1 << pos, 4);
-	printf("pos %d in binary (pos + 1): %s\n", pos, shift);
-	free(shift);
-
-	// Here we're taking the number 1 (0001) and setting the pos (3) + 1 bit so
-	// we get 1001 which in decimal is 9.
-	int result = num | (1 << pos);
-
-	printf("result = num | (1 << pos)\n");
-
-	char* result_bits = get_bit_str(result, 4);
-	printf("result = (%d | (1 << %d)) => result = %d in binary: %s", num, pos, result, result_bits);
-	free(result_bits);
-}
 
 /***********************************************************************
  * NAME:		bit_mask(int, int)

@@ -66,17 +66,6 @@ void set_bits_loop();
 void shift_bits_loop();
 
 /***********************************************************************
- * NAME:		set_bit(int, int)
- *
- * DESCRIPTION:	Sets the bit at position pos in the specified number.
- *
- * INPUTS:		pos The bit position in num to set.
- *              num The number to get the bit representation.
- *
- */
-void set_bit(int pos, int num);
-
-/***********************************************************************
  * NAME:		bit_mask(int, int)
  *
  * DESCRIPTION:	???

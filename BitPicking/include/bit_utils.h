@@ -8,6 +8,10 @@
 #ifndef INCLUDE_BIT_UTILS_H_
 #define INCLUDE_BIT_UTILS_H_
 
+#define BANNER "\n***********  %s  ***********\n\n"
+
+#include <stdbool.h>
+
 /***********************************************************************
  * NAME:		get_bit_str(int, int)
  *
@@ -33,10 +37,22 @@ char* get_bit_str(int num, int num_bits);
  *
  * INPUTS:		pos The bit position.
  *              num The number that contains the bits.
- *              is_bit_set 0 if not set, non-zero if set.
+ *              is_bit_set false if not set, true if set.
  * 				num_bit_str The string representation of the number in bits.
  *
+ * OUTPUTS:		None.
  */
-void print_bit_set(int pos, int num, int is_bit_set, char* num_bit_str);
+void print_bit_set(int pos, int num, bool is_bit_set, char* num_bit_str);
+
+/***********************************************************************
+ * NAME:		test_get_bit_str()
+ *
+ * DESCRIPTION:	Tests the get_bit_str function.
+ *
+ * INPUTS:		None.
+ *
+ * OUTPUTS:		None.
+ */
+void test_get_bit_str();
 
 #endif /* INCLUDE_BIT_UTILS_H_ */

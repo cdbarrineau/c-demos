@@ -11,10 +11,10 @@
 1 << 0 = 1 because x^1 == 1
 ```
 
-### Left Shift
+## Left Shift
 
 ```
-n == bit_position_to_set
+n == bit_position_to_set (zero based in a bit array)
 ```
 
 Left shift effectively multliplies by 2.
@@ -24,77 +24,46 @@ a << n is the same as mathematically: a * (2^n)
 Where:
  * a: The number whose bits to shift.
  * n: The number of places to shift (e.g. 1 is shift 1 place, 2 is shift two places).
+     * In code this is the index into the bit array of a number.
 
 This example can see that multiplying by 2 not only gives 10 but also shifts the bits by one to the left:
 
 ```
-5 in binary: (0101) : 5 << 1 = 10 (1010)  or 5 * (2^1)
+0 in binary: (0000) : 0 << 0 = 0 (0000) of 0 * (2^0) = 0  // Shift 0 by 0 places.
+
+1 in binary: (0001) : 1 << 0 = 1 (0001) or 1 * (2^0) = 1  // Shift 1 by 0 places
+
+1 in binary: (0001) : 1 << 1 = 2 (0010) or 1 * (2^1) = 2  // Shift 1 by 1 place
+
+1 in binary: (0001) : 1 << 2 = 4 (0100) or 1 * (2^2) = 4  // Shift 1 by 2 places
+
+5 in binary: (0101) : 5 << 1 = 10 (1010)  or 5 * (2^1)  // Shift bits in 5 one place:
+
+5 in binary: (0101) : 5 << 3 = 40 (101000) or 5 * (2^3) // Shift bits in 5 three places
 ```
 
-Another example, shift bits in 5 three places:
+### Left Shift Usages
 
-```
-5 in binary: (0101) : 5 << 3 = 40 (101000) or 5 * (2^3)
-```
-
-##### Usages
-
-Get a bit:
+Get a bit (check if a bit is set):
 * Check if the bit in bit_position is set in num and if zero, bit is not set.  If true, bit is set.
 
 ```
 bool is_set = (num & (1 << bit_position) != 0);
+
+true = (1 & (1 << 0)) != 0  // num = 0001  bit_position = 0
+
+true = (2 & (1 << 1)) != 0  // num == 0010 bit_position = 1
+
 ```
 
-Set a bit:
+#### Set a bit
+** (Packing data into a single integer) **:
 * Updates the bit in bit_position of num and returned the updated bit value (0 or 1).
+* Can pack individual items by shifting a bit number into the appropriate position.
 
 ```
 int updated_bit_value = num | (1 << bit_position);
-```
 
-Clear a bit:
-* Create a complement (~) of the bit_position then AND it.  This will result in
-    * If the bit was set, it is unset.
-    * If the bit was unset, it will be left alone.
-* Returns the updated bit value.
-
-```
-int mask = ~(1 << bit_position)
-
-int updated_bit_value = num & mask;
-```
-
-Bit Masking
-
-
-
-Bit Masking and Manipulation
-* Bit Masking is setting a bit into a specific location.
-* Used to create a Bit Mask.  Bit Masks are used to isolate, set, or clear specific bits in a binary number.
-
-Set a bit
-
-```
-int mask = 1 << 3;          // Creates a mask with the fourth bit (3+1) set (1000)
-int value = 5;              // 5 in binary is 0101
-int result = value & mask;  // Masks the larger value, isolating the fourth bit (1101).
-```
-
-Clear a bit
-
-```
-
-```
-
-
-
-Packing data into a single integer
-* Can pack individual items by shifting a bit number into the appropriate position.
-
-Use this to set a bit via the | operator:
-
-```
 int result = num | (1 << pos);
 int result = 1 | (1 << 3);  // Set the thrid bit from the right to 1 in the number 1.
 ```
@@ -109,7 +78,43 @@ Where:
     s (n+1)th bit to 1.
  </b>
 
-### Right Shift
+#### Bit Masking
+Use tilde operator, will invert all bits.
+ * ~0 (0000) == 1111
+
+
+#### Clear a bit ** (use Masking for this): **
+* Create a complement (~) of the bit_position then AND it.  This will result in
+    * If the bit was set, it is unset.
+    * If the bit was unset, it will be left alone.
+* Returns the updated bit value.
+
+```
+int mask = ~(1 << bit_position)
+
+int updated_bit_value = num & mask;
+```
+
+
+
+
+
+
+Bit Masking
+
+
+
+Bit Masking and Manipulation
+* Bit Masking is setting a bit into a specific location.
+* Used to create a Bit Mask.  Bit Masks are used to isolate, set, or clear specific bits in a binary number.
+
+
+
+
+
+
+
+## Right Shift
 
 Right shift effectively divides by 2.
 

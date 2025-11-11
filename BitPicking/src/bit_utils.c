@@ -27,17 +27,50 @@
  * 				bits in num.
  */
 char* get_bit_str(int num, int num_bits) {
-	num_bits = num_bits > 0 ? num_bits : sizeof(num);
+	num_bits = num_bits > 0 ? num_bits : sizeof(int);
 
-	char* buf = (char*)malloc(num_bits);
+	// Allocate enough memory for the number of bits including room for NULL.
+	char* buf = (char*)malloc((num_bits + 1));
+
+	if (!buf) {
+		printf("\nMemory allocation failed !\n");
+		return "";
+	}
 
 	// Start at least significant bit.
 	for (int i = num_bits - 1; i >= 0; i--) {
-		char* bit = (num & (1 << i)) ? "1" : "0";
+		char bit = (num & (1 << i)) ? '1' : '0';
 
-		strncat(buf, bit, 1);
+		buf[i] = bit;
 	}
-	strncat(buf, "\0", 1);
+
+	// Remember to append the NULL char.
+	buf[num_bits] = '\0';
+
+	return buf;
+
+//	// XXX: This no worky worky...
+//	// When having multiple malloc'd string it eventually
+//	// get garbage.  Not too sure why...
+//
+//	num_bits = num_bits > 0 ? num_bits : sizeof(int);
+//
+//	char* buf = (char*)malloc((num_bits + 1) * sizeof(char));
+//
+//	if (!buf) {
+//		printf("\nMemory allocation failed !\n");
+//		return "";
+//	}
+//
+//	// Start at least significant bit.
+//	for (int i = num_bits - 1; i >= 0; i--) {
+//		char* bit = (num & (1 << i)) ? "1" : "0";
+//
+////		strncat(buf, bit, 1);
+//		strcat(buf, bit);
+//	}
+////	strncat(buf, "\0", 1);
+////	strcat(buf, "\n");
 
 	return buf;
 }
@@ -49,15 +82,45 @@ char* get_bit_str(int num, int num_bits) {
  *
  * INPUTS:		pos The bit position.
  *              num The number that contains the bits.
- *              is_bit_set 0 if not set, non-zero if set.
+ *              is_bit_set false if not set, true if set.
  * 				num_bit_str The string representation of the number in bits.
  *
+ * OUTPUTS:		None.
  */
-void print_bit_set(int pos, int num, int is_bit_set, char* num_bit_str) {
+void print_bit_set(int pos, int num, bool is_bit_set, char* num_bit_str) {
 	if (is_bit_set) {
-		printf("Bit at position %d of num %d is set.  Num: %s\n", pos, num, num_bit_str);
+		printf("Bit at position (index) %d of num %d is set.  Num: %s\n", pos, num, num_bit_str);
 	}
 	else {
-		printf("Bit at position %d of num %d is NOT set.  Num: %s\n", pos, num, num_bit_str);
+		printf("Bit at position (index) %d of num %d is NOT set.  Num: %s\n", pos, num, num_bit_str);
 	}
+}
+
+/***********************************************************************
+ * NAME:		test_get_bit_str()
+ *
+ * DESCRIPTION:	Tests the get_bit_str function.
+ *
+ * INPUTS:		None.
+ *
+ * OUTPUTS:		None.
+ */
+void test_get_bit_str() {
+	char* c = get_bit_str(0, 4);
+	printf("c (0) %s\n", c);
+
+	char* d = get_bit_str(1, 4);
+	printf("d (1) %s\n", d);
+
+	free(c);
+	free(d);
+
+	c = get_bit_str(1, 4);
+	printf("c (1) %s\n", c);
+
+	d = get_bit_str(2, 4);
+	printf("d (2) %s\n", d);
+
+	free(c);
+	free(d);
 }

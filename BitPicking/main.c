@@ -9,14 +9,27 @@
 #include <string.h>
 
 #include "include/bit_utils.h"
+#include "include/shift_bit_test.h"
 #include "include/get_bit_test.h"
-//#include "include/print_bits.h"
-
+#include "include/set_bit_test.h"
+#include "include/clear_bit_test.h"
 
 int main() {
 
+	test_get_bit_str();
 
-	run_get_bit_test();
+//	run_shift_bit_test();
+
+//	run_get_bit_test();
+
+//	run_set_bit_test();
+
+
+
+//	run_invert_bits_test();
+//	run_clear_bit_test();
+
+
 
 
 
