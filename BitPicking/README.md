@@ -11,6 +11,9 @@
 1 << 0 = 1 because x^1 == 1
 ```
 
+AND (&) allows the checking a bit's state (on or off).
+
+
 ## Left Shift
 
 ```
@@ -44,7 +47,7 @@ This example can see that multiplying by 2 not only gives 10 but also shifts the
 
 ### Left Shift Usages
 
-Get a bit (check if a bit is set):
+#### Get a bit (check if a bit is set):
 * Check if the bit in bit_position is set in num and if zero, bit is not set.  If true, bit is set.
 
 ```
@@ -78,10 +81,26 @@ Where:
     s (n+1)th bit to 1.
  </b>
 
-#### Bit Masking
+#### Invert bits
 Use tilde operator, will invert all bits.
- * ~0 (0000) == 1111
- * ~(1 << 0) == 0111
+
+```
+mask = ~num_to_mask
+
+inverted of 0000 (0) is 1111
+inverted of 0001 (1) is 1110
+inverted of 0010 (2) is 1101
+inverted of 0011 (3) is 1100
+inverted of 0100 (4) is 1011
+```
+
+#### Bit Masking
+* Bit Masking is setting a bit into a specific location.
+* Allows multiple values to be set in the same, single number like an int.
+* Used to create a Bit Mask.  Bit Masks are used to isolate, set, or clear specific bits in a binary number.
+
+ * mask of 0 = ~0 (0000) == 1111
+ * mask of 1 = ~(1 << 0) == 0111
 
 
 #### Clear a bit ** (use Masking for this): **
@@ -92,25 +111,26 @@ Use tilde operator, will invert all bits.
 
 ```
 int mask = ~(1 << bit_position)
-
 int updated_bit_value = num & mask;
+
+bit position to clear: 0  (0000)
+Shifted 0001 (1 << bit_pos_to_clear)
+mask: 1110 (~(1 << bit_pos_to_clear))
+num 0001 : (1) 
+value 0000 (num & mask) 
+
+bit position to clear: 1  (0001)
+Shifted 0010 (1 << bit_pos_to_clear)
+mask: 1101 (~(1 << bit_pos_to_clear))
+num 0001 : (1)
+value 0001 (num & mask) Note how the bit in pos 0 remains 1
+
+bit position to clear: 1  (0001)
+Shifted 0010 (1 << bit_pos_to_clear)
+mask: 1101 (~(1 << bit_pos_to_clear))
+num 0010 : (2) 
+value 0000 (num & mask) Note how the bit in pos 1 is cleared
 ```
-
-
-
-
-
-
-Bit Masking
-
-
-
-Bit Masking and Manipulation
-* Bit Masking is setting a bit into a specific location.
-* Used to create a Bit Mask.  Bit Masks are used to isolate, set, or clear specific bits in a binary number.
-
-
-
 
 
 

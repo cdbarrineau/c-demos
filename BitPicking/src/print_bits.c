@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <limits.h>
 
 #include "../include/print_bits.h"
 #include "../include/bit_utils.h"
@@ -15,7 +16,8 @@
 /***********************************************************************
  * NAME:		print_int_bits(int)
  *
- * DESCRIPTION:	Prints each bit in the specified number on a separate line.
+ * DESCRIPTION:	Prints each bit in the specified number on a separate line
+ *              for the width of an int (usually 4 bytes).
  *
  * INPUTS:		num The number to get the bit representation.
  *
@@ -24,25 +26,29 @@ void print_int_bits(int num) {
 
 	printf(BANNER, "print_int_bits(num)");
 
+	// Only want to print the first 4 bits of num
 	int len = sizeof(int);
 	char* buf = (char*)malloc(len);
+	buf[0] = '\n'; // OR: *buf = 0
 
 	for (int i = 0; i < len; i++) {
-		int mask = 1 << i;
+		int shifted = 1 << i;
 
-		char* mask_str = get_bit_str(mask, 4);
+		char* shifted_str = get_bit_str(shifted, 4);
 
-		printf("Mask of 1 << %d: %s (decimal = %d) ( 1 * 2^%d = %d)\n", i, mask_str, mask, i, mask);
+		printf("Shift of 1 << %d = %s (decimal = %d) ( 1 * 2^%d = %d)\n", i, shifted_str, shifted, i, shifted);
 
-		free(mask_str);
+		free(shifted_str);
 
-		char* bit = (num & (1 << i)) ? "1" : "0";
+		char bit = (num & (1 << i)) ? '1' : '0';
 
-		strncat(buf, bit, 1);
+		// Here we want to but the least significant bit at the other end of
+		// the array.  This is effectively swapping the array positions.
+		buf[len - 1 - i] = bit;
 	}
-	strncat(buf, "\0", 1);
+	buf[len] = '\0';
 
-	printf("%d: %s\n", num, buf);
+	printf("Bits of %d: %s\n", num, buf);
 
 	free(buf);
 }

@@ -13,6 +13,8 @@
 #include "include/get_bit_test.h"
 #include "include/set_bit_test.h"
 #include "include/clear_bit_test.h"
+#include "include/print_bits.h"
+#include "include/invert_bits_test.h"
 
 int main() {
 
@@ -24,53 +26,24 @@ int main() {
 
 //	run_set_bit_test();
 
-
-	run_invert_bits_test();
+//	run_invert_bits_test();
 	run_clear_bit_test();
 
+	// Test code from Shlemiel The Painter
+	// https://wiki.c2.com/?ShlemielThePainter
 
+	//	char str[] = "*Hello!";
+	//	str[0] = sizeof(str)/sizeof(*str) - 2;
+	////	str[0] = strlen(str) - 1;
+	//
+	//	int len1 = strlen(str) - 1;
+	//
+	//	printf("str: %s\n", str);
+	//	printf("strlen(str) - 1 = %d", len1);
+	//	printf("sizeof(str)/sizeof(*str) - 2 = %s\n", (sizeof(str)/sizeof(*str) - 2));
 
-
-
-
-
-	// Set the second bit of 0.
-//	int set = num | (1 << pos);
-//	char* bit_str2 = get_bit_str(set, 4);
-//	printf("Set bit of %d bit at position %d is set %d: %s", num, pos, set, bit_str2);
-//	free(bit_str2);
-
-
-
-//	print_int_bits(2);
-
-//	// Set the bit in position 3 to 1 which yields 1001 (9):
-//	// result = num (1) | (1 << pos (3))
-//	set_bit(3, 1);
-//	printf("\n\n");
-//
-//	// Prints out the bits from 0-15.
-//	print_bits();
-//
-//	bit_mask(5, 3);
-//	printf("\n\n");
-//
-//	bit_mask(15, 3);
-//	printf("\n\n");
-//
-//	// Sets each bit in a new variable to 1 for each i in the loop.
-//	set_bits_loop();
-//	printf("\n\n");
-//
-//	// Reuses the same value and sets the nth bit to 1 in a loop.
-//	shift_bits_loop();
-//	printf("\n\n");
-//
-//	// This is 0001 because 2^0 = 1
-//	int i = 1 << 0;
-//	char* str = get_bit_str(i, 4);
-//	printf("Remember 2^ 0 == 1 so: 1 << 0 = %s\n\n", str);
-//	free(str);
+	//	str[0] = strlen(str) - 1;
+	//	printf("First: %s\n", str);
 
 	return 0;
 }
