@@ -13,6 +13,8 @@
 
 AND (&) allows the checking a bit's state (on or off).
 
+** Bit Position is zero-based **
+
 
 ## Left Shift
 
@@ -95,8 +97,34 @@ inverted of 0100 (4) is 1011
 ```
 
 #### Bit Masking
-* Bit Masking is setting a bit into a specific location.
+* A mask defines which bits you want to keep, and which bits you want to clear.
 * Allows multiple values to be set in the same, single number like an int.
+* Bit Masking is setting a bit into a specific location.
+
+```
+result = value << positions:
+    r = 1 << 3 Shifts the bits in 1 by 3 positions.
+    1 << 3 = 1000  Creates a mask with the 4th bit set.
+```
+
+```
+Given the following bits, we want to clear all upper 4 bits but keep all lower 4 bits:
+
+Applying the mask:
+
+result = mask & value
+
+Mask:   00001111
+Value:  01010101
+Result: 00000101
+```
+
+##### Common Operations
+* Setting a bit using OR (|)
+* Checking if a bit is set or not using AND (&)
+* Clearing a bit using AND with negated maks (See below on clearing a bit but: val = num & ( ~(1 << bit_pos) ) ).
+
+
 * Used to create a Bit Mask.  Bit Masks are used to isolate, set, or clear specific bits in a binary number.
 
  * mask of 0 = ~0 (0000) == 1111
@@ -113,23 +141,40 @@ inverted of 0100 (4) is 1011
 int mask = ~(1 << bit_position)
 int updated_bit_value = num & mask;
 
-bit position to clear: 0  (0000)
-Shifted 0001 (1 << bit_pos_to_clear)
-mask: 1110 (~(1 << bit_pos_to_clear))
-num 0001 : (1) 
-value 0000 (num & mask) 
+// Notice how the bit position 0 is cleared to value = 0000 even though it was never set in num.
+bit position to clear: 0            0000
+Shifted: (1 << bit_pos_to_clear)    0001
+mask: (~(1 << bit_pos_to_clear))    1110
+num: (1)                            0001
+value: (num & mask)                 0000
 
-bit position to clear: 1  (0001)
-Shifted 0010 (1 << bit_pos_to_clear)
-mask: 1101 (~(1 << bit_pos_to_clear))
-num 0001 : (1)
-value 0001 (num & mask) Note how the bit in pos 0 remains 1
+// Notice how the bit position 1 is zero and the value is still 0001 since the 0th bit is not touched.
+bit position to clear: 1            0001
+Shifted: (1 << bit_pos_to_clear)    0010
+mask: (~(1 << bit_pos_to_clear))    1101
+num: (1)                            0001
+value: (num & mask)                 0001
 
-bit position to clear: 1  (0001)
-Shifted 0010 (1 << bit_pos_to_clear)
-mask: 1101 (~(1 << bit_pos_to_clear))
-num 0010 : (2) 
-value 0000 (num & mask) Note how the bit in pos 1 is cleared
+// Notice how bit position is 1 and num is 0010 so it clears the bit in the second place (bit pos is 0-based).
+bit position to clear: 1            0001
+Shifted: (1 << bit_pos_to_clear)    0010
+mask: (~(1 << bit_pos_to_clear))    1101
+num: (2)                            0010
+value: (num & mask)                 0000
+
+// Notice how the bit position is 2 and num is 2.  Since bit pos is 0-based, it does not touch num's 2nd bit, hence 0010.
+bit position to clear: 2            0010
+Shifted: (1 << bit_pos_to_clear)    0100
+mask: (~(1 << bit_pos_to_clear))    1011
+num: (2)                            0010
+value: (num & mask)                 0010
+
+// Notice how want to clear bit at index 2 and 4 has bit set at index 2 so result is 0000 as it cleared index 2 bit.
+bit position to clear: 2            0010
+Shifted: (1 << bit_pos_to_clear)    0100
+mask: (~(1 << bit_pos_to_clear))    1011
+num: (4)                            0100
+value: (num & mask)                 0000
 ```
 
 
@@ -141,16 +186,49 @@ Right shift effectively divides by 2.
 
 a >> n is the same mathematically as a / (2^n)
 
-(Same operands as left shift)
+** Used commonly for fast division **
+** Left bits are filled in with zeros **
+** Can result in loss of digits as bits on the right are discarded **
+
+* For unsigned ints all right bits are set to zero, a.k.a "Logical Right Shift"
+* For signed ints the signed bit (left-most) is preserved a.k.a "Arithmetic Right Shift"
 
 Example:
 
 ```
 20 in binary: (10100) 20 >> 2 = 5 (1010) or 20 / (2^2)
+
+number to shift << number of places to shift
+
+num_places_to_shift:    0
+num_to_shift: (1)       0001
+shifted (1 >> 0):       0001
+
+num_places_to_shift:    1
+num_to_shift: (1)       0001
+shifted (1 >> 1):       0000
+
+num_places_to_shift:    1
+num_to_shift: (3)       0011
+shifted (3 >> 1):       0001
 ```
 
+### 2's Compliment
 
- *
- * result = value << positions:
- *      r = 1 << 3 Shifts the bits in 1 by 3 positions.
- *      1 << 3 = 1000  Creates a mask with the 4th bit set.
+Representing signed ints (+, 0, -) in binary
+
+* First, invert all bits of a number to convert (~)
+* Add 1 to the result
+
+```
+result = 1 + ~num_to_convert
+
+num to convert:   1 (0001)
+inverted:        -2 (1110)
+result:          -1 (1111)
+
+num to convert:  -1 (1111)
+inverted:         0 (0000)
+result:           1 (0001)
+```
+

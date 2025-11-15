@@ -27,6 +27,8 @@ void run_clear_bit_test() {
 
 	printf(BANNER, "run_clear_bit_test()");
 
+	printf("Remember bit position is 0-based!\n\n");
+
 	/*
 	 * This prints the following:
 	 *
@@ -40,26 +42,26 @@ void run_clear_bit_test() {
 
 	int bit_pos_to_clear = 0;
 	int num = 1;
+	int shifted = 1 << bit_pos_to_clear;
+	int mask = ~(1 << bit_pos_to_clear);
+	int value = num & mask;
 
 	// To clear a bit we need to create a mask where we shift
 	// a 0001 by n where n is the n'th bit to unset.
 	char* bit_to_clear_str = get_bit_str(bit_pos_to_clear, 4);
-	printf("bit position to clear: %d  (%s)\n", bit_pos_to_clear, bit_to_clear_str);
+	printf("bit position to clear: %d\t\t%s\n", bit_pos_to_clear, bit_to_clear_str);
 
-	int shifted = 1 << bit_pos_to_clear;
 	char* shifted_str = get_bit_str(shifted, 4);
-	printf("Shifted %s (1 << bit_pos_to_clear)\n", shifted_str);
+	printf("Shifted: (1 << bit_pos_to_clear)\t%s\n", shifted_str);
 
-	int mask = ~(1 << bit_pos_to_clear);
 	char* mask_str = get_bit_str(mask, 4);
-	printf("mask: %s (~(1 << bit_pos_to_clear))\n", mask_str);
+	printf("mask: (~(1 << bit_pos_to_clear))\t%s\n", mask_str);
 
-	int value = num & mask;
 	char* num_str = get_bit_str(num, 4);
-	char* value_str = get_bit_str(value, 4);
+	printf("num: (%d) \t\t\t\t%s\n", num, num_str);
 
-	printf("num %s : (%d) \n", num_str, num);
-	printf("value %s (num & mask) \n", value_str);
+	char* value_str = get_bit_str(value, 4);
+	printf("value: (num & mask) \t\t\t%s\n", value_str);
 
 	free(bit_to_clear_str);
 	free(shifted_str);
@@ -69,28 +71,27 @@ void run_clear_bit_test() {
 
 	printf("\n");
 
-	// This will result in 0001.
-	// Why not 0010???
+	// This will not touch the 0th bit so value is still 0001
 	bit_pos_to_clear = 1;
 	num = 1;
+	shifted = 1 << bit_pos_to_clear;
+	mask = ~(1 << bit_pos_to_clear);
+	value = num & mask;
 
 	bit_to_clear_str = get_bit_str(bit_pos_to_clear, 4);
-	printf("bit position to clear: %d  (%s)\n", bit_pos_to_clear, bit_to_clear_str);
+	printf("bit position to clear: %d\t\t%s\n", bit_pos_to_clear, bit_to_clear_str);
 
-	shifted = 1 << bit_pos_to_clear;
 	shifted_str = get_bit_str(shifted, 4);
-	printf("Shifted %s (1 << bit_pos_to_clear)\n", shifted_str);
+	printf("Shifted: (1 << bit_pos_to_clear)\t%s\n", shifted_str);
 
-	mask = ~(1 << bit_pos_to_clear);
 	mask_str = get_bit_str(mask, 4);
-	printf("mask: %s (~(1 << bit_pos_to_clear))\n", mask_str);
+	printf("mask: (~(1 << bit_pos_to_clear))\t%s\n", mask_str);
 
-	value = num & mask;
 	num_str = get_bit_str(num, 4);
-	value_str = get_bit_str(value, 4);
+	printf("num: (%d) \t\t\t\t%s\n", num, num_str);
 
-	printf("num %s : (%d) \n", num_str, num);
-	printf("value %s (num & mask) Note how the bit in pos 0 remains 1\n", value_str);
+	value_str = get_bit_str(value, 4);
+	printf("value: (num & mask) \t\t\t%s\n", value_str);
 
 	free(bit_to_clear_str);
 	free(shifted_str);
@@ -102,24 +103,53 @@ void run_clear_bit_test() {
 
 	bit_pos_to_clear = 1;
 	num = 2; // (0010)
+	shifted = 1 << bit_pos_to_clear;
+	mask = ~(1 << bit_pos_to_clear);
+	value = num & mask;
 
 	bit_to_clear_str = get_bit_str(bit_pos_to_clear, 4);
-	printf("bit position to clear: %d  (%s)\n", bit_pos_to_clear, bit_to_clear_str);
+	printf("bit position to clear: %d\t\t%s\n", bit_pos_to_clear, bit_to_clear_str);
 
-	shifted = 1 << bit_pos_to_clear;
 	shifted_str = get_bit_str(shifted, 4);
-	printf("Shifted %s (1 << bit_pos_to_clear)\n", shifted_str);
+	printf("Shifted: (1 << bit_pos_to_clear)\t%s\n", shifted_str);
 
-	mask = ~(1 << bit_pos_to_clear);
 	mask_str = get_bit_str(mask, 4);
-	printf("mask: %s (~(1 << bit_pos_to_clear))\n", mask_str);
+	printf("mask: (~(1 << bit_pos_to_clear))\t%s\n", mask_str);
 
-	value = num & mask;
 	num_str = get_bit_str(num, 4);
-	value_str = get_bit_str(value, 4);
+	printf("num: (%d) \t\t\t\t%s\n", num, num_str);
 
-	printf("num %s : (%d) \n", num_str, num);
-	printf("value %s (num & mask) Note how the bit in pos 1 is cleared\n", value_str);
+	value_str = get_bit_str(value, 4);
+	printf("value: (num & mask) \t\t\t%s\n", value_str);
+
+	free(bit_to_clear_str);
+	free(shifted_str);
+	free(mask_str);
+	free(num_str);
+	free(value_str);
+
+	printf("\n");
+
+	bit_pos_to_clear = 2;
+	num = 4;
+	shifted = 1 << bit_pos_to_clear;
+	mask = ~(1 << bit_pos_to_clear);
+	value = num & mask;
+
+	bit_to_clear_str = get_bit_str(bit_pos_to_clear, 4);
+	printf("bit position to clear: %d\t\t%s\n", bit_pos_to_clear, bit_to_clear_str);
+
+	shifted_str = get_bit_str(shifted, 4);
+	printf("Shifted: (1 << bit_pos_to_clear)\t%s\n", shifted_str);
+
+	mask_str = get_bit_str(mask, 4);
+	printf("mask: (~(1 << bit_pos_to_clear))\t%s\n", mask_str);
+
+	num_str = get_bit_str(num, 4);
+	printf("num: (%d) \t\t\t\t%s\n", num, num_str);
+
+	value_str = get_bit_str(value, 4);
+	printf("value: (num & mask) \t\t\t%s\n", value_str);
 
 	free(bit_to_clear_str);
 	free(shifted_str);

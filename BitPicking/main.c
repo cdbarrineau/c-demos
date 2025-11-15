@@ -15,6 +15,8 @@
 #include "include/clear_bit_test.h"
 #include "include/print_bits.h"
 #include "include/invert_bits_test.h"
+#include "include/right_shift_test.h"
+#include "include/twos_compliment.h"
 
 int main() {
 
@@ -27,7 +29,16 @@ int main() {
 //	run_set_bit_test();
 
 //	run_invert_bits_test();
-	run_clear_bit_test();
+//	run_clear_bit_test();
+
+//	run_right_shift_test();
+
+	run_twos_compliment_test();
+
+
+
+
+
 
 	// Test code from Shlemiel The Painter
 	// https://wiki.c2.com/?ShlemielThePainter
