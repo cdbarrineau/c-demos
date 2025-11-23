@@ -92,7 +92,6 @@ void free_str_array_of_arrays(char** arr, int len) {
 		free(arr[i]);
 	}
 
-
 	free(arr);
 }
 
@@ -100,21 +99,23 @@ void create_str_array_of_arrays() {
 
 	// Length of the array or string arrays.
 	int num_row = 20;
-//	int num_cols = 2;
+	int num_cols = 10;
 
 	// Allocate the pointer to the list of pointers.
-	char** outer = (char**) malloc(num_row * sizeof(char*));
+	// Allocate 20 slots of size char* plus one for the NULL terminator.
+	char** outer = (char**) malloc(sizeof(char*) * (num_row + 1));
 
 	for (int i = 0; i < num_row; i++) {
-		outer[i] = malloc( /* num_cols * */ sizeof(int));
+		// Each item in the list, allocate enough space for num_cols plus the NULL terminator.
+		outer[i] = (char*)malloc(sizeof(char) * (num_cols + 1));
+		outer[i][0] = '\0';
 
-		sprintf(outer[i], "%d", i);
+		snprintf(outer[i], num_cols + 1, "item # %d", (i + 1));
 	}
 
 	for (int i = 0; i < num_row; i++) {
 		printf("outer[%d]: %s\n", i, outer[i]);
 	}
-
 
 	free_str_array_of_arrays(outer, num_row);
 }

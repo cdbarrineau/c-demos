@@ -25,7 +25,11 @@ void do_person_test() {
 	person* p = (person*)malloc(sizeof(person));
 	(*p).age = 50;	// Or p->age
 
-	printf("CHAR_BIT: %ld bytes\n", sizeof(CHAR_BIT));
+	// CHAR_BIT is not in bits but is an int in bytes and sizeof(int) == 4.
+	printf("sizeof(CHAR_BIT) = %zu BYTES\n", sizeof(CHAR_BIT));
+
+	// Here, char is always 1 byte.
+	printf("sizeof(char)     = %zu BYTES\n", sizeof(char));
 
 	p->name = (char*)malloc(len * CHAR_BIT);
 	p->name[0] = '\0';
@@ -53,12 +57,13 @@ void do_person_test() {
 
 void to_str_arr_test() {
 	int num_items = 10;
-	char** arr = (char**)malloc(sizeof(char*) * num_items);
+	char** arr = (char**)malloc(sizeof(char**) * (num_items + 1));
 
 	for (int i = 0; i < num_items; i++) {
-		char* list = (char*)malloc(sizeof(int) + 1);
+		char* list = (char*)malloc(sizeof(char*) + 1);
+		list[0] = '\0';
 
-		sprintf(list, "item: %d\n", i);
+		sprintf(list, "item: %d", i);
 
 		arr[i] = list;
 	}
@@ -76,7 +81,7 @@ void to_str_arr_test() {
 
 
 int main() {
-//	do_person_test();
+	do_person_test();
 
 	to_str_arr_test();
 
