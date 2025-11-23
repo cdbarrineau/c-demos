@@ -6,7 +6,9 @@
  */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
+#include <limits.h>
 
 #include "include/one_d_array.h"
 #include "include/two_d_array.h"
@@ -59,10 +61,72 @@ void do_str_ops() {
 	printf("End\n");
 }
 
+/*
+ *
+ */
+void create_20_array() {
+
+	int len = 20;
+
+	char* arr = (char*)malloc(len);
+	arr[0] = '\0';
+
+	// This will put in the ASCII chars from 48 (0) to 67 (C).
+	for (int i = 0; i < len; i++) {
+		arr[i] = i + '0';
+	}
+
+	for (int i = 0; i < len; i++) {
+		printf("%c\n", arr[i]);
+	}
+
+	printf("str = %s\n", arr);
+	printf("strlen: %zu\n", strlen(arr));
+
+	free(arr);
+}
+
+void free_str_array_of_arrays(char** arr, int len) {
+
+	for (int i = 0; i < len; i++) {
+		free(arr[i]);
+	}
+
+
+	free(arr);
+}
+
+void create_str_array_of_arrays() {
+
+	// Length of the array or string arrays.
+	int num_row = 20;
+//	int num_cols = 2;
+
+	// Allocate the pointer to the list of pointers.
+	char** outer = (char**) malloc(num_row * sizeof(char*));
+
+	for (int i = 0; i < num_row; i++) {
+		outer[i] = malloc( /* num_cols * */ sizeof(int));
+
+		sprintf(outer[i], "%d", i);
+	}
+
+	for (int i = 0; i < num_row; i++) {
+		printf("outer[%d]: %s\n", i, outer[i]);
+	}
+
+
+	free_str_array_of_arrays(outer, num_row);
+}
+
 
 int main() {
 
-	do_str_ops();
+//	do_str_ops();
+
+//	create_20_array();
+
+	create_str_array_of_arrays();
 
 
 //	printf ("***** one_d_array *****\n");

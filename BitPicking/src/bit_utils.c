@@ -7,9 +7,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <limits.h>
 
 #include "../include/bit_utils.h"
+
+// Number of bits when the specific value is less than or equal to zero.
+#define DEFAULT_BITS 4
 
 /***********************************************************************
  * NAME:		get_bit_str(int, int)
@@ -35,10 +37,15 @@ char* get_bit_str(int num, int num_bits) {
 	 * ** Which is why use * CHAR_BIT
 	 * ** But also want to check for upper bound!!
 	 */
-	num_bits = num_bits > 0 ? num_bits : sizeof(int) * CHAR_BIT;
+	num_bits = num_bits > 0 ? num_bits : DEFAULT_BITS;
 
 	// Allocate enough memory for the number of bits including room for NULL.
+	// NOTE: malloc will allocate X number of BYTES.  However, this will be
+	// uninitialized memory.  Hence the use of buf[0] = '\0';
 	char* buf = (char*)malloc(num_bits + 1);
+
+	// Or use calloc that will also allocated X number of bytes but will also
+	// init all BITS to zero.
 
 	if (!buf) {
 		printf("\nMemory allocation failed !\n");

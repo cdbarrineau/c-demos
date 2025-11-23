@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <limits.h>
 
 #include "include/bit_utils.h"
 #include "include/shift_bit_test.h"
@@ -34,6 +35,10 @@ int main() {
 //	run_right_shift_test();
 
 	run_twos_compliment_test();
+
+
+
+//	printf("Num Bits: %d\n", (sizeof(int) * CHAR_BIT));
 
 
 

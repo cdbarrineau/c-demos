@@ -26,6 +26,36 @@ typedef struct {
 	int z;
 } point;
 
+// Used to allocate the struct and the string inside of it.
+typedef struct {
+	char* str;
+	int len;
+} inner_data;
+
+/***********************************************************************
+ * NAME:		new_inner_data()
+ *
+ * DESCRIPTION:	Creates a new inner_data struct with it and the char*
+ *              data initialized.
+ *
+ * INPUTS:		str_size - The number of bytes to allocate for the data string.
+ *
+ * OUTPUTS:		Returns a pointer to the inner data struct.
+ *
+ */
+inner_data* new_inner_data(int str_size);
+
+/***********************************************************************
+ * NAME:		free_inner_data()
+ *
+ * DESCRIPTION:	Frees all data in the provided struct.
+ *
+ * INPUTS:		data - The data to free..
+ *
+ * OUTPUTS:		None.
+ *
+ */
+void free_inner_data(inner_data* data);
 
 /***********************************************************************
  * NAME:		add_one_pass_by_value(pint)

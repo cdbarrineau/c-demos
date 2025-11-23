@@ -10,6 +10,56 @@
 #include "../include/structs.h"
 
 /***********************************************************************
+ * NAME:		new_inner_data()
+ *
+ * DESCRIPTION:	Creates a new inner_data struct with it and the char*
+ *              data initialized.
+ *
+ * INPUTS:		str_size - The number of bytes to allocate for the data string.
+ *
+ * OUTPUTS:		Returns a pointer to the inner data struct.
+ *
+ */
+inner_data* new_inner_data(int str_size) {
+	inner_data* data = (inner_data*)malloc(sizeof(inner_data));
+
+	if (data == NULL) {
+		return NULL;
+	}
+
+	data->str = (char*)malloc(str_size);
+	if (data->str == NULL) {
+		free(data);
+
+		return NULL;
+	}
+
+	data->str[0] = '\0';
+
+	return data;
+}
+
+/***********************************************************************
+ * NAME:		free_inner_data()
+ *
+ * DESCRIPTION:	Frees all data in the provided struct.
+ *
+ * INPUTS:		data - The data to free..
+ *
+ * OUTPUTS:		None.
+ *
+ */
+void free_inner_data(inner_data* data) {
+	if (data != NULL) {
+		if (data->str != NULL) {
+			free(data->str);
+		}
+
+		free(data);
+	}
+}
+
+/***********************************************************************
  * NAME:		add_one_pass_by_value(point)
  *
  * DESCRIPTION:	Increments the data in the point by one.  This value is passed

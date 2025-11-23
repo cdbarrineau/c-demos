@@ -123,13 +123,12 @@ Result: 00000101
 * Setting a bit using OR (|)
 * Checking if a bit is set or not using AND (&)
 * Clearing a bit using AND with negated maks (See below on clearing a bit but: val = num & ( ~(1 << bit_pos) ) ).
-
-
 * Used to create a Bit Mask.  Bit Masks are used to isolate, set, or clear specific bits in a binary number.
 
- * mask of 0 = ~0 (0000) == 1111
- * mask of 1 = ~(1 << 0) == 0111
-
+```
+mask of 0 = ~0 (0000) == 1111
+mask of 1 = ~(1 << 0) == 0111
+```
 
 #### Clear a bit ** (use Masking for this): **
 * Create a complement (~) of the bit_position then AND it.  This will result in
@@ -217,11 +216,26 @@ shifted (3 >> 1):       0001
 
 Representing signed ints (+, 0, -) in binary
 
+2's compliment has only one representation of a negative numbere whereas 1's compliment has + and 1 zero.
+
+```
+Eith a 8-bit int:
+
+Notiation        Min  Max
+Unsigned           0  255
+1's compliment  -127 +127
+2's compliment  -128 +127
+
+```
 * First, invert all bits of a number to convert (~)
 * Add 1 to the result
 
 ```
 result = 1 + ~num_to_convert
+
+num to convert:   0 (0000)
+inverted:        -1 (1111)
+result:           0 (0000)
 
 num to convert:   1 (0001)
 inverted:        -2 (1110)

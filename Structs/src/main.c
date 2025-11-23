@@ -6,11 +6,46 @@
  */
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "../include/structs.h"
 
 
 int main() {
+
+
+// ---------------  Create struct with inner malloc array and init 0-9 ---
+
+	int str_len = 10;
+
+	inner_data* in_data = new_inner_data(str_len);
+	if (in_data == NULL) {
+		fprintf(stderr, "Unable to allocate inner_data");
+	}
+
+	// In ASCII, 0 starts on the integer 48:
+	// https://www.asciitable.com/
+
+	// That's the reason we can just add 0 to i because it
+	// will set i to 48 + whatever i is equal.
+	int j = (int)'0';
+
+	printf("%d\n", j);
+
+	for (int i = 0; i < str_len; i++) {
+		// To convert from an int to a char, simply add the char '0';
+		in_data->str[i] = i + '0';
+	}
+
+	printf("in_data->str = %s\n", in_data->str);
+	printf("in_data->str length = %lu\n", strlen(in_data->str));
+
+	printf("\n\n******************************\n");
+
+	free_inner_data(in_data);
+
+// -------------------------------------------------------------------------
+
 
 	// Create an unnamed struct.
 //	struct point1 p1;
