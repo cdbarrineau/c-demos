@@ -189,6 +189,9 @@ a >> n is the same mathematically as a / (2^n)
 ** Left bits are filled in with zeros **
 ** Can result in loss of digits as bits on the right are discarded **
 
+* When applied to an unsigned or non-negative number, all vacent bits on the left are filled with zeros.
+* When applied to a negateive number, ???  Se below.
+
 * For unsigned ints all right bits are set to zero, a.k.a "Logical Right Shift"
 * For signed ints the signed bit (left-most) is preserved a.k.a "Arithmetic Right Shift"
 
@@ -235,7 +238,7 @@ result = 1 + ~num_to_convert
 
 num to convert:   0 (0000)
 inverted:        -1 (1111)
-result:           0 (0000)
+result:           0 (0000) (adding one to above really results in "1 0000" but since the bit width is 4, it's just 0000).
 
 num to convert:   1 (0001)
 inverted:        -2 (1110)

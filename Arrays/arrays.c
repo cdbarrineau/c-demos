@@ -99,18 +99,35 @@ void create_str_array_of_arrays() {
 
 	// Length of the array or string arrays.
 	int num_row = 20;
-	int num_cols = 10;
+	int num_cols = 15;
+
+	/*
+	 * char**  Each column is a char* so char** is just a list of char*
+	 * 	- The whole char** is terminated by NULL.
+	 * 	- Each char* string is terminated by NULL.
+	 * 		- For each of these, need to allocate +1 to the size.
+	 * -----------------------------------
+	 * 		char*  | "Value 1" + \0
+	 * 		char*  | "Value 2" + \0
+	 * 		char*  | "Value 3" + \0
+	 * 		char*  | "Value 4" + \0
+	 * 		char*  | "Value 5" + \0
+	 * 		char*  | "Value 6" + \0
+	 * 		char*  | "Value 7" + \0
+	 *		\0
+	 */
 
 	// Allocate the pointer to the list of pointers.
 	// Allocate 20 slots of size char* plus one for the NULL terminator.
 	char** outer = (char**) malloc(sizeof(char*) * (num_row + 1));
+	outer[0] = '\0';
 
 	for (int i = 0; i < num_row; i++) {
 		// Each item in the list, allocate enough space for num_cols plus the NULL terminator.
 		outer[i] = (char*)malloc(sizeof(char) * (num_cols + 1));
 		outer[i][0] = '\0';
 
-		snprintf(outer[i], num_cols + 1, "item # %d", (i + 1));
+		snprintf(outer[i], num_cols + 1, "item # %d of some really long line", (i + 1));
 	}
 
 	for (int i = 0; i < num_row; i++) {
@@ -120,14 +137,33 @@ void create_str_array_of_arrays() {
 	free_str_array_of_arrays(outer, num_row);
 }
 
+void do_hello_1D_test() {
+	int len = 10;
+	char* str = (char*)malloc(sizeof(char) * (len + 1));
+	str[0] = '\0';
+
+	snprintf(str, len + 1, "Hello");
+	// When looping, make SURE to only loop over allocated memory.
+	for (int i = 0; i < 5; i++) {
+		printf("Value at [%d] = %c\n", i, str[i]);
+	}
+
+
+	free(str);
+}
+
 
 int main() {
+
+	do_hello_1D_test();
+
+	create_str_array_of_arrays();
 
 //	do_str_ops();
 
 //	create_20_array();
 
-	create_str_array_of_arrays();
+//	create_str_array_of_arrays();
 
 
 //	printf ("***** one_d_array *****\n");
