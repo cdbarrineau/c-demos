@@ -8,7 +8,9 @@
 #include <stdio.h>
 
 #include "include/deref.h"
+#include "include/int_pointer_arithmetic.h"
 #include "include/strings.h"
+
 
 int main() {
 
@@ -16,7 +18,13 @@ int main() {
 
 //	derefInt();
 
-	pointerStuff();
+//	pointerStuff();
+
+//	pointers_and_addresses();
+
+	test_int_array();
+
+	test_char_array();
 
 	return 0;
 }

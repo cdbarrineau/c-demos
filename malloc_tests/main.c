@@ -8,6 +8,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "include/one_d.h"
+
 
 /**********************************************************************
  * Print 1 - 10 using the ASCII codes (0 in ASCII is 48 decimal).
@@ -64,7 +66,7 @@ void do_two_d_test() {
 	// in the array plus 1 for the ASCII NUL (\0).
 	// Make sure to assign the allocated memory to \0 (not NULL but ASCII NUL) char.
 	char** list = (char**)malloc(sizeof(char*) * (num_items + 1));
-	list[0] = '\0';
+	list[0] = NULL;
 	for (int i = 0; i < num_items; i++) {
 
 		// Allocate enough space for the char pointer timed the size of
@@ -96,7 +98,7 @@ void do_md_test() {
 	int inner_len = 20;
 
 	char** arr = (char**)malloc(sizeof(char**) * (num_items + 1));   // Make sure to add one for NULL terminator.
-	arr[0] = '\0';
+	arr[0] = NULL;
 
 	char* item = (char*)malloc(sizeof(char*) * (inner_len + 1)); // Make sure to add one for NULL terminator.
 	item[0] = '\0';
@@ -113,11 +115,15 @@ void do_md_test() {
 
 int main() {
 
-	do_one_d_test();
+//	print_zero_to_nine();
 
-	do_two_d_test();
+	print_zero_to_nine_list();
 
-	do_md_test();
+//	do_one_d_test();
+//
+//	do_two_d_test();
+
+//	do_md_test();
 
 	return 0;
 }
