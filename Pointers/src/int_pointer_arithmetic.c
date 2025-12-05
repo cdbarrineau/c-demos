@@ -10,6 +10,163 @@
 #include "../include/int_pointer_arithmetic.h"
 
 /***********************************************************************
+ * NAME:		test_arr_like_char()
+ *
+ * DESCRIPTION:	Tests the weird behavior with arrays as seen in chars.
+ *
+ *
+ */
+void test_arr_like_char() {
+	int arr[] = { 11, 13, 15 };
+
+	printf("arr = %p\n", arr);
+
+	int c = 0;
+	int *cp = NULL;
+
+	printf("\nc = %p -- cp = %p\n", &c, cp);
+
+	/*
+	 * Any time you assign an address to
+	 * a variable like:
+	 * 		int c = *(arr + i);
+	 * 			or
+	 * 		int c = &(*(arr + i));
+	 *
+	 * c points to the same address because it is
+	 * the address of "c" that is being printed, not
+	 * the address of the array index.
+	 *
+	 */
+
+	// This assigns the VALUE in arr[i] to the variable
+	// c.  Since c is already allocated, the address of
+	// c remains unchanged but it's value, arr[i] is
+	// the only thing that changes.
+	for (int i = 0; i < 3; i++) {
+		c = *(arr + i);
+		printf("&(*(arr + %d) = %d : %p\n", i, c, &c);
+	}
+
+	printf("\n");
+
+	// This assigns the address of arr[i] to the pointer cp
+	// therefore, the values for cp are different since they
+	// point to a different index in the array.
+
+	// NOTE how the first pointer address is the same address
+	// as arr[0] AND how each address is 4 bytes from the last
+	// address.
+	for (int i = 0; i < 3; i++) {
+		cp = &(*(arr + i));
+		printf("&(*(arr + %d) = %d : %p\n", i, *cp, cp);
+	}
+
+	printf("\nc = %p -- cp = %p\n", &c, cp);
+
+	// Same exact thing as above, only not assigning any tmp variables.
+	for (int i = 0; i < 3; i++) {
+		// arr[i] or *(arr + i)
+		printf("&(*(arr + %d) = %d : %p\n", i, *(arr + i), &(*(arr + i)));
+	}
+}
+
+/***********************************************************************
+ * NAME:		test_int_array_and_pointers()
+ *
+ * DESCRIPTION:	Runs the same tests on both array and pointers.
+ *
+ *
+ */
+void test_int_array_and_pointers() {
+
+	// Define an array.
+	int arr[] = { 11, 14, 16 };
+
+	printf("arr: %p\n", arr);
+
+	for (int i = 0; i < 3; i++) {
+		int val = *(arr + i);
+
+		printf("val[%d] = %d\n", i, val);
+	}
+
+	for (int i = 0; i < 3; i++) {
+		int *val = arr + i;
+
+		printf("val[%d] = %p\n", i, val);
+	}
+}
+
+
+/***********************************************************************
+ * NAME:		print_int_arr_deref()
+ *
+ * DESCRIPTION:	Prints an int array's pointer address and value.
+ *
+ *
+ */
+void print_int_arr_deref() {
+	int size = 5;
+
+	// NOTE: "a" is refereed to as "array name".
+	int a[] = {1, 11, 21, 31, 41};
+
+//	printf("*a = %d\n", *a);
+//	printf("*a + 1 = %d\n", *a + 1);
+
+	// Set a pointer to point to element zero of a.
+	// Or just can use "a"
+	// This is the same as:
+	//		pa = a  Since a is the location of initial element
+	int *pa = &a[0];
+
+	// So both of these pointer addresses are the same.
+	printf("pa = %p\n", pa);
+	printf("a  = %p\n", a);
+
+	// Deref the element at index 0.
+	printf("*pa = %d\n", *pa);
+
+	// Could just use a[i] but C compiler will convert to *(pa + i).
+	// This will add one to the pointer then defref it so:
+	// 1, 22, 21, 31, 41.
+	for (int i = 0; i < size; i++) {
+		// The value stored in index i.
+		int val = *(pa + i);
+		printf("*(pa + %d) = %d\n", i, val);
+	}
+
+	// This yields the same exact thing as above.
+	for (int i = 0; i < size; i++) {
+		int val = *(a + i);
+		printf("*(a + %d) = %d\n", i, val);
+	}
+
+	// This one will defref a and add one (i.e. "i") to a[0].
+	// Values will be: 1, 2, 3, 4, 5
+	for (int i = 0; i < size; i++) {
+		int val = (*a + i);
+		printf("(*a + %d) = %d\n", i, val);
+	}
+
+	// This is the same address as a + 0.
+	printf("a = %p\n", a);
+	printf("pa = %p\n", pa);
+
+	// Can index with pa, so pa is the same as a.  p[1] = 11.
+	printf("pa[1] = %d\n", pa[1]);
+
+	for (int i = 0; i < size; i++) {
+		// The address of the pointer in a[i].
+		// Notice how each address if 4 byte offset from the previous
+		// because size of an int is 4 bytes and the array is
+		// contiguous in memory.
+		printf("(a + %d) = %p\n", i, (a + i));
+	}
+}
+
+/***********************************************************************
  * NAME:		test_int_array()
  *
  * DESCRIPTION:	Does basic pointer arithmetic on a int array.
@@ -18,9 +175,13 @@
  */
 void test_int_array() {
 
+	print_int_arr_deref();
+
 	printf("\n***********  int pointer arithmetic  ***********\n");
 
 	int a[] = {10, 11, 12, 13, 14};
+
+
 
 	// This outputs 20 which is the number of bytes allocated
 	// (5 ints * 4 bytes per int).
@@ -33,6 +194,14 @@ void test_int_array() {
 	// Prints the pointer address to a[0].
 	printf("a:  %p\n", a);
 
+	printf("a[0]: %d\n", a[0]);
+	printf("*a: %d\n", (*a));
+
+	printf("a[1]: %d\n", a[1]);
+
+	printf("&a[0]: %p\n", &a[0]);
+	printf("&a[1]: %p\n", &a[1]);
+
 	// Set a pointer to the first element of the array (a[0]).
 	// This will be the same value as "a" which is a pointer to the array.
 	int *pa = &a[0];
@@ -44,12 +213,12 @@ void test_int_array() {
 
 	// Deref the pointer to array (value in a[0] which is 10).
 	int ten = (*pa);
-	printf("*pa = %d\n", ten);
+	printf("*(pa) = %d\n", ten);
 
 	// Get the address of a[1].
 	// This is pa + 4 bytes for the int.
 	int *pa1 = &a[1];
-	printf("pa1 = %p\n", pa1);
+	printf("pa1 (&a[1]) = %p\n", pa1);
 
 	// Get the next address of pa + 1.  This is exactly the same as *pa1
 	int *pa1_1 = pa + 1;
@@ -62,37 +231,6 @@ void test_int_array() {
 
 	// The contents of a[1] is equal to (*pa + 1) which is 11.
 	printf("a[1] = %d\n", a[1]);
-}
-
-/***********************************************************************
- * NAME:		test_char_array()
- *
- * DESCRIPTION:	Does basic pointer arithmetic on a char array.
- *
- *
- */
-void test_char_array() {
-	printf("\n***********  char arrays  ***********\n");
-
-	// b is the same as a above.
-	char b[] = "hello";
-
-	// p, here is an unnamed static array of chars.
-	char *p = "hello";
-
-	printf("b: %s\n", b);
-	printf("p: %s\n", p);
-
-	b[0] = 'p';
-	printf("b after b[0] = 'p': %s\n", b);
-
-	// This will crash the program.
-//	p[0] = '1';
-	printf("p[0] = '1' will crash the program since it's an unnamed static array.\n");
-
-	// Prints 123
-	char c[] = {'1', '2', '3', '\0'};
-	printf("c: %s\n", c);
 }
 
 

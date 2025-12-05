@@ -24,6 +24,16 @@ void run_twos_compliment_test() {
 
 	printf(BANNER, "run_twos_compliment_test()");
 
+	// When adding a 2's compliment to an original number, the answer is zero.
+	int num1 = 5;
+	int num2 = 2;
+	int num_twos = ~(num2) + 1;	// Invert all bits and add 1.
+	int answer = num1 + num_twos;
+
+	printf("2's compliment %d + %d = %d\n", num1, num_twos, answer);
+
+	printf("2's of %d added to itself is %d\n\n", num2, (num_twos + num2));
+
 	// Convert a positive to a negative number.
 
 	// Invert all bits and add 1.

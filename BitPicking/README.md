@@ -217,6 +217,19 @@ shifted (3 >> 1):       0001
 
 ### 2's Compliment
 
+** Subtracting a number is the same as adding a number's 2's compliment!! **
+** When add a 2's compliment to the original number, the answer is zero **
+
+```
+int num1 = 5;
+int num2 = 2;
+int num_twos = ~(num2) + 1; // Invert all bits and add 1.
+int answer = num1 + num_twos;
+
+2's compliment 5 + -2 = 3
+2's of 2 added to itself is 0
+```
+
 Representing signed ints (+, 0, -) in binary
 
 2's compliment has only one representation of a negative numbere whereas 1's compliment has + and 1 zero.
