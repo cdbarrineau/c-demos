@@ -54,11 +54,15 @@ void test_const_ptr() {
 	// but the pointer itself cannot.
 	int arr[] = { 2, 4, 6 };
 
-	// NOTE: NO Address of since arr is already a named array.
+	// NOTE: NO & since arr is already a named array.
+	// However, can do this either of these:
+	int * const addr_of = &arr[0];
+
 	int * const pa = arr;
 
 	printf("&arr = %p\n", &arr);
 	printf("pa   = %p\n", pa);
+	printf("addr_of = %p\n", addr_of);
 
 	// Should be able to change an item in the array but not the pointer itself.
 	*(pa) = 20;

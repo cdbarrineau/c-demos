@@ -11,11 +11,11 @@
 /*
  * Typical non-named struct.
  */
-//struct point1 {
-//	int x;
-//	int y;
-//	int z;
-//};
+struct point1 {
+	int x;
+	int y;
+	int z;
+};
 
 /**
  * Named struct.
@@ -32,78 +32,38 @@ typedef struct {
 	int len;
 } inner_data;
 
-/***********************************************************************
- * NAME:		new_inner_data()
- *
- * DESCRIPTION:	Creates a new inner_data struct with it and the char*
- *              data initialized.
- *
- * INPUTS:		str_size - The number of bytes to allocate for the data string.
- *
- * OUTPUTS:		Returns a pointer to the inner data struct.
- *
- */
-inner_data* new_inner_data(int str_size);
+typedef struct {
+	point p;
+	inner_data id;
+} outer_point;
+
 
 /***********************************************************************
- * NAME:		free_inner_data()
+ * NAME:		test_outer_struct()
  *
- * DESCRIPTION:	Frees all data in the provided struct.
+ * DESCRIPTION:	Runs a test on the outer_point structure.
  *
- * INPUTS:		data - The data to free..
- *
- * OUTPUTS:		None.
  *
  */
-void free_inner_data(inner_data* data);
+void test_outer_struct();
 
 /***********************************************************************
- * NAME:		add_one_pass_by_value(pint)
+ * NAME:		test_malloc()
  *
- * DESCRIPTION:	Increments the data in the point by one.  This value is passed
- * 				by value so upon returning, the values will remain unchanged.
- * 				However, the returned point WILL indeed have the correct
- * 				incremented values.
+ * DESCRIPTION:	Runs a test on the with mallocing a structure.
  *
- * INPUTS:		p the point.
- *
- * OUTPUTS:		point Returns the point passed in with the correctly incremented
- * 				values.
  *
  */
-point add_one_pass_by_value(point p);
-
-//point* add_one_pbv(point p);
+void test_malloc();
 
 /***********************************************************************
- * NAME:		add_one_pass_by_ref(point)
+ * NAME:		test_unnamed()
  *
- * DESCRIPTION:	Increments the data in the point by one.  This value is passed
- * 				by reference so upon returning, the values will be changed since
- * 				we are passing in a pointer to the memory location of p.
+ * DESCRIPTION:	Runs a test on tan unnamed structure.
  *
- * INPUTS:		p the point.
- *
- * OUTPUTS:		point Returns the point passed in with the correctly incremented
- * 				values.
  *
  */
-point* add_one_pass_by_ref(point* p);
+void test_unnamed();
 
-/***********************************************************************
- * NAME:		create(int, int, int)
- *
- * DESCRIPTION:	Creates and returns a point struct.
- *
- * INPUTS:		x the point's X.
- *              y the point's Y.
- *              z the point's Z.
- *
- * OUTPUTS:		point Returns the new point struct.
- *
- */
-point create(int x, int y, int z);
-
-point* create_ptr();
 
 #endif /* INCLUDE_STRUCTS_H_ */

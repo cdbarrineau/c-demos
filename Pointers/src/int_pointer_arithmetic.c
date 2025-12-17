@@ -107,10 +107,13 @@ void test_int_array_and_pointers() {
  *
  */
 void print_int_arr_deref() {
-	int size = 5;
+
+	printf("\n***********  print_int_arr_deref  ***********\n");
 
 	// NOTE: "a" is refereed to as "array name".
-	int a[] = {1, 11, 21, 31, 41};
+	int a[] = { 10, 20, 30 };
+
+	size_t size = sizeof(a) / sizeof(int);
 
 //	printf("*a = %d\n", *a);
 //	printf("*a + 1 = %d\n", *a + 1);
@@ -119,7 +122,8 @@ void print_int_arr_deref() {
 	// Or just can use "a"
 	// This is the same as:
 	//		pa = a  Since a is the location of initial element
-	int *pa = &a[0];
+//	int *pa = &a[0];
+	int *pa = a;
 
 	// So both of these pointer addresses are the same.
 	printf("pa = %p\n", pa);
@@ -129,22 +133,26 @@ void print_int_arr_deref() {
 	printf("*pa = %d\n", *pa);
 
 	// Could just use a[i] but C compiler will convert to *(pa + i).
-	// This will add one to the pointer then defref it so:
-	// 1, 22, 21, 31, 41.
+	// Adding i to the address of a which gives the next
+	// pointer location, then dereferencing that address.
+	// So it gives 10, 20, 30
 	for (int i = 0; i < size; i++) {
 		// The value stored in index i.
 		int val = *(pa + i);
 		printf("*(pa + %d) = %d\n", i, val);
 	}
 
-	// This yields the same exact thing as above.
-	for (int i = 0; i < size; i++) {
-		int val = *(a + i);
-		printf("*(a + %d) = %d\n", i, val);
-	}
+	// Could just use a[i] but C compiler will convert to *(pa + i).
+	// Same thing as above with:
+	// 			int *n = *(a + 1);
+//	for (int i = 0; i < size; i++) {
+//		int val = *(a + i);
+//		printf("*(a + %d) = %d\n", i, val);
+//	}
 
 	// This one will defref a and add one (i.e. "i") to a[0].
-	// Values will be: 1, 2, 3, 4, 5
+	// Values will be: 10, 11, 12
+	// BECAUSE first dereferencing a then adding i to the value in a[0].
 	for (int i = 0; i < size; i++) {
 		int val = (*a + i);
 		printf("(*a + %d) = %d\n", i, val);
@@ -175,7 +183,7 @@ void print_int_arr_deref() {
  */
 void test_int_array() {
 
-	print_int_arr_deref();
+//	print_int_arr_deref();
 
 	printf("\n***********  int pointer arithmetic  ***********\n");
 

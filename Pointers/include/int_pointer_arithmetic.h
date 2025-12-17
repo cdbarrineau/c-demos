@@ -9,6 +9,15 @@
 #define INCLUDE_INT_POINTER_ARITHMETIC_H_
 
 /***********************************************************************
+ * NAME:		print_int_arr_deref()
+ *
+ * DESCRIPTION:	Prints an int array's pointer address and value.
+ *
+ *
+ */
+void print_int_arr_deref();
+
+/***********************************************************************
  * NAME:		test_arr_like_char()
  *
  * DESCRIPTION:	Tests the weird behavior with arrays as seen in chars.
