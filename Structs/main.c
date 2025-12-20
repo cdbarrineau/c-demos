@@ -9,6 +9,7 @@
 #include "include/structs.h"
 #include "include/array_of_structs.h"
 #include "include/p_struct.h"
+#include "include/test_union.h"
 
 
 int main() {
@@ -21,9 +22,11 @@ int main() {
 
 //	test_array_structs();
 
-//	test_p_struct();
-	test_pass_by_value();
+//	test_pbv();
+//	test_pba();
+//	test_unnamed_struct();
 
+	test_union();
 
 	return 0;
 }
