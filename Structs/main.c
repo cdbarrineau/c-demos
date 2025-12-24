@@ -15,7 +15,6 @@
 #include "include/struct_definitions.h"
 #include "include/bit_field.h"
 #include "include/tree_node.h"
-#include "include/linkedlist.h"
 
 int main() {
 
@@ -35,9 +34,7 @@ int main() {
 
 //	test_struct_definitions();
 
-//	test_tree_node();
-
-	test_dbl_linked_list();
+	test_tree_node();
 
 //	test_bit_field();
 
