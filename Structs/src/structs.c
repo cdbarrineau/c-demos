@@ -154,6 +154,8 @@ point* create_ptr() {
 	p->y = 11;
 	p->z = 12;
 
+	(*p).x = 10;
+
 	printf("Address of create_ptr(): %p\n", p);
 
 	return p;

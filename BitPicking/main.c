@@ -19,6 +19,7 @@
 #include "include/right_shift_test.h"
 #include "include/twos_compliment.h"
 
+
 int main() {
 
 //	test_get_bit_str();
