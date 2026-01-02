@@ -2,6 +2,29 @@
 
 Collection ot tests that demonstrate pointers.
 
+## const keyword variants
+
+ * char array[] = "hello"
+    * Creates the string "hello" in writable memory so can modify contents.
+    * Can NOT just assign a different char[] to another array because arr[0]
+            decays to it's first index as a pointer and that pointer is not
+            modifyable.
+            Have to use strncpy or memcpy.
+ * char *
+    * If define with constant string, that string is stored in read-only memory, can't modify string.
+    * Normal, can assign chars (if not read-only) or reassign pointer to char*
+        * Init with malloc, can assign char to any location in array.
+ * const char *
+    * Constant array contents, can't assign chars but can reassign pointer.
+    * Can create another const char* and assign it to first.
+    * Can't do things like strcpy, snprintf, etc. causes core dump and get compiler warning.
+    *
+    
+ * char * const
+    * Constant array pointer.  Can assign chars but not the pointer to the char *array.
+ * const char * const
+    * Constant array contents and constant pointer, can't assign either.
+
 ## Decay
 When an array is assigned to a pointer and the array looses information such as its size.
 
@@ -76,3 +99,20 @@ An array does not decay when:
     *(arr + i) = Some long string: 4 other stu : 0x562d259f97b0 where i = 4
 ```
   
+## Modify the pointer itself
+
+ * In order to modify the pointer itself, must pass a pointer to a pointer (char **).
+ 
+```
+char *s = "Hello";
+
+mod_str(&s);
+
+// s is now "Goodbye" with a different address.
+
+void mod_str(char **s) {
+
+    (*s) = "Goodbye";
+}
+
+```

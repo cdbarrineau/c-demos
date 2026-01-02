@@ -30,9 +30,23 @@ void run_twos_compliment_test() {
 	int num_twos = ~(num2) + 1;	// Invert all bits and add 1.
 	int answer = num1 + num_twos;
 
+	char *five_str = get_bit_str(num1, 4);
+	char *two_str = get_bit_str(num2, 4);
+	char *twos_str = get_bit_str(num_twos, 4);
+	char *answer_str = get_bit_str(answer, 4);
+
+	printf("five    5 - %s\n", five_str);
+	printf("two_str 2 - %s\n", two_str);
+	printf("twos_str  - %s\n", twos_str);
+
 	printf("2's compliment %d + %d = %d\n", num1, num_twos, answer);
 
 	printf("2's of %d added to itself is %d\n\n", num2, (num_twos + num2));
+
+	free(five_str);
+	free(two_str);
+	free(twos_str);
+	free(answer_str);
 
 	// Convert a positive to a negative number.
 

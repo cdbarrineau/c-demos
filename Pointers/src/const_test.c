@@ -6,8 +6,201 @@
  */
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "../include/const_test.h"
+
+void update_char(char* c) {
+	printf("Updating %s with c[0] = G\n", c);
+	c[0] = 'G';
+}
+
+/***********************************************************************
+ * NAME:		quick_const_test()
+ *
+ * DESCRIPTION:	Tests all three variants or const keyword.
+ *
+ */
+void quick_const_test() {
+
+	printf("*********  char test  *********\n");
+	/******************************************************
+	 * Defining it this way allocates the string in writeable
+	 * memory so can do anything.
+	 *
+ 	 */
+	char arr1[] = "Hello, World!";
+	arr1[0] = 'P';
+	printf("arr1 = %s\n", arr1);
+
+	// Can't just reassign because the pointer decays.
+	// Have to use strncpy or memcpy.
+	char arr2[] = "Goodbye";
+//	arr1 = arr2;
+	memcpy(arr1, arr2, 5);
+
+	// Prints: "Goodb, World!"
+	printf("after memccpy: arr1 = %s\n", arr1);
+
+
+
+
+	/******************************************************
+	 * Can reassign pointer but not the chars in the array.
+	 *
+ 	 */
+	char *c0 = "Zero";
+	// Can't do this, core dumps.  Does NOT cause
+	// any compiler warnings, just UB.
+//	update_char(c0);
+//	c0[0] = 'O';
+	printf("c0 = %s\n", c0);
+
+	char* c01 = (char*)malloc(sizeof(char) * 6);
+	snprintf(c01, 6, "Zero2");
+	c01[0] = 'L';
+	printf("c01 = %s\n", c01);
+
+	/******************************************************
+	 * Can reassign pointer but not the chars in the array.
+	 *
+	 */
+	const char *c1 = "One";
+	// Can't do this as the contents read-only.
+//	c1[0] = 'T';
+	// This causes a seg fault.
+//	update_char(c1);
+	printf("c1 = %s\n", c1);
+
+	const char *c11 = "OneOne";
+	c1 = c11;
+	c1 = "One";
+	printf("c1 = %s\n", c1);
+
+	// Can reassign the pointer.
+	const char *c2 = "Two";
+	c1 = c2;
+	printf("c1 = %s\n", c1);
+
+	// Try with dynamic memory.
+	// NOTE: Probably don't want to do this.  If want a const,
+	// malloc to a char* then assign to const char * then free
+	// original char*.
+//	const char *c3 = malloc(sizeof(char) * 6);
+
+	char *c4 = (char*)malloc(sizeof(char) * 6);
+	snprintf(c4, 6, "Hello");
+	const char *c5 = c4;
+
+	printf("c4 = %s ptr = %p\n", c4, c4);
+	printf("c5 = %s ptr = %p\n", c5, c5);
+
+//	free(c3);
+	free(c4);
+
+	printf("c5 = %s ptr = %p\n", c5, c5);
+
+	// Can not do this as it's read-only memory.
+//	c3[0] = '\0';
+
+//	strcpy(c3, "Hello");
+//	printf("c3 = %s\n", c3);
+//	free(c3);
+
+
+
+
+
+	// Get a warning about discarding const qualifier but allowable.
+//	snprintf(c3, 6, "Three");
+//	printf("c3 = %s\n", c3);
+
+	// Get same warning about discaring const qualifier but allowable.
+//	update_char(c3);
+//	printf("c3 = %s\n", c3);
+
+
+	// *****************************************************
+
+
+
+
+
+//	const char *t1 = "Test 1";
+//
+//	// Can't change the contents, it's read-only memory.
+////	t1[1] = 'L';
+//
+//	// Can reassign the pointer.
+//	t1 = "Again";
+//
+//	printf("t1 = %s\n", t1);
+//
+//	// *****************************************************
+//	char * const t2 = "Test 2";
+//
+//	// Can't change the pointer assignment.
+////	t2 = "2 Again";
+//
+//	// Can't change an index in the array as the string literal is in read-only
+//	// memory.  There are no compiler errors, just a seg fault.
+////	t2[0] = 'F';
+//	printf("t2 = %s\n", t2);
+//
+//	// Try with dynamic memory.
+//	// Can change a char with this though.
+//	char * const t3 = malloc(sizeof(char) * 6);
+//	snprintf(t3, 6, "Three");
+//	t3[0] = 'K';
+//	printf("t3 = %s\n", t3);
+//
+//	// Can't do this as the const makes the pointer read-only.
+////	t2 = t3;
+//
+//	// Can't do this as that assignment is to read-only memory.
+//	char tmp[2];
+//	tmp[1] = '\0';
+//	tmp[0] = 'Z';
+////	t3 = tmp;
+////	t3 = &tmp;
+//
+//	free(t3);
+//
+//	const char * const tmp1 = "cc";
+//	printf("tmp1 = %s\n", tmp1);
+//
+//
+//	// *****************************************************
+//	const char * const t4 = "Test 4";
+//
+//	// Can't do this because of first const, it's read-only memory.
+////	t4[1] = 'L';
+//	printf("t4 = %s\n", t4);
+//
+//	// Can't do this either, it's still read-only memory but again
+//	// no compiler errors, just core dump.
+//	char * const t5 = "Test 5";
+////	t5[0] = 'F';
+//	printf("t5 = %s\n", t5);
+//
+//	const char * const t6 = malloc(sizeof(char) * 4);
+//	// Can't do this, compiler warning it discards the const pointer
+//	// also core dumps.
+////	snprintf(t6, 4, "Six");
+//	printf("t6 = %s\n", t6);
+//
+//	// Can't even do this, compiler error assigning to read-only memory.
+////	t6[0] = '\0';
+//
+//
+//	// Can't do this, will seg fault.
+////	char * t41 = t4;
+////	t41[1] = 'L';
+}
+
+
+
+
 
 /***********************************************************************
  * NAME:		test_const_arr_itens_and_ptr()

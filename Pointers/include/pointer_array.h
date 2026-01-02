@@ -36,4 +36,7 @@ void test_char_ptr_array();
 void test_char_ptr_to_ptrs();
 
 
+void test_pbv();
+
+
 #endif /* INCLUDE_POINTER_ARRAY_H_ */

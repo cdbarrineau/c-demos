@@ -22,6 +22,10 @@
 
 int main() {
 
+	int i = 1;
+	int j = 0;
+	printf("i ^ j = %d\n", (i ^ j));
+
 //	test_get_bit_str();
 
 //	run_shift_bit_test();
@@ -31,11 +35,11 @@ int main() {
 //	run_set_bit_test();
 
 //	run_invert_bits_test();
-//	run_clear_bit_test();
+	run_clear_bit_test();
 
 //	run_right_shift_test();
 
-	run_twos_compliment_test();
+//	run_twos_compliment_test();
 
 
 

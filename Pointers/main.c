@@ -14,17 +14,21 @@
 #include "include/const_test.h"
 #include "include/pointer_array.h"
 #include "include/function_pointers.h"
+#include "include/mod_str_in_function.h"
 
 int main() {
+
+
+
 
 //	test_fcn_ptr(0);
 //	test_fcn_ptr(1);
 
 
-
+//	test_pbv();
 //	test_int_ptr_array();
 //	test_char_ptr_array();
-	test_char_ptr_to_ptrs();
+//	test_char_ptr_to_ptrs();
 
 
 
@@ -57,9 +61,12 @@ int main() {
 //	test_char_arr_no_decay();
 //	test_str_function_decay();
 
+	quick_const_test();
 //	test_const_arr_items();
 //	test_const_ptr();
 //	test_const_arr_itens_and_ptr();
+
+	test_mod_str_in_function();
 
 	return 0;
 }

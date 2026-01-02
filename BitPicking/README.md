@@ -1,5 +1,19 @@
 # Notes on Bit Picking
 
+## XOR
+Only set a bit to 1 if one or the other is set to 1 and the other is 0:
+
+```
+    int i = 0;
+    int j = 1;
+    
+    i ^j = 1;
+    
+    int i = 1;
+    int j = 1;
+    
+    i ^ j = 0; 
+```
 
 > **_IMPORTANT_**
 
@@ -100,6 +114,14 @@ inverted of 0100 (4) is 1011
 * A mask defines which bits you want to keep, and which bits you want to clear.
 * Allows multiple values to be set in the same, single number like an int.
 * Bit Masking is setting a bit into a specific location.
+
+```
+To create a mask, shift to a position and invert:
+
+* bit_pos_to_clear is zero-based) *
+
+mask = ~(1 << bit_pos_to_clear);
+```
 
 ```
 result = value << positions:
@@ -228,6 +250,15 @@ int answer = num1 + num_twos;
 
 2's compliment 5 + -2 = 3
 2's of 2 added to itself is 0
+```
+
+Better example:
+
+```
+Start with +6:    0110
+Invert the bits:  1001
+Add 1: 1010 Thus, 1010 represents −6 in two's complement.
+
 ```
 
 Representing signed ints (+, 0, -) in binary

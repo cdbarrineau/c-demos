@@ -6,8 +6,72 @@
  */
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "../include/pointer_array.h"
+
+
+void change_ptr_addr(char *c, char *d) {
+
+	char* c2 = c;
+
+	c[0] = 'Q';
+
+	d = c;
+
+	printf("c: %s - %p\n", c, c);
+	printf("d: %s - %p\n", d, d);
+}
+
+void test_malloc_char() {
+
+	printf("\n****  test_malloc_char  ****\n");
+
+	char *c = (char*)malloc(sizeof(char) * 5);
+	if (c == NULL) {
+		fprintf(stderr, "Unable to allocate memory!");
+	}
+
+	snprintf(c, 5, "Four");
+
+	char *d = c;
+
+	printf("c = %s - %p\n", c, c);
+	printf("d = %s - %p\n", d, d);
+
+	change_ptr_addr(c, d);
+
+	printf("c after change_ptr_addr: %s - %p\n", c, c);
+
+	free(c);
+}
+
+
+
+void change_char_addr(char *name) {
+
+	printf("\n****  change_char_addr  ****\n");
+
+	char *s = "Two";
+	printf("s =\t%s, address = %p\n", s, s);
+
+	name = s;
+	printf("ns =\t%s, address = %p\n", name, name);
+}
+
+void test_pbv() {
+
+	printf("****  test_pbv  ****\n");
+
+	char *name = "One";
+	printf("Name =\t%s, address = %p\n", name, name);
+
+	change_char_addr(name);
+
+	printf("Name =\t%s, address = %p\n", name, name);
+
+	test_malloc_char();
+}
 
 
 /***********************************************************************

@@ -9,6 +9,14 @@
 #define INCLUDE_CONST_TEST_H_
 
 /***********************************************************************
+ * NAME:		quick_const_test()
+ *
+ * DESCRIPTION:	Tests all three variants or const keyword.
+ *
+ */
+void quick_const_test();
+
+/***********************************************************************
  * NAME:		test_const_arr_itens_and_ptr()
  *
  * DESCRIPTION:	Tests when both the array items and the pointer are

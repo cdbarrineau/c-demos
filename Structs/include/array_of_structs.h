@@ -1,40 +1,41 @@
 /*
  * array_of_structs.h
  *
- *  Created on: Dec 16, 2025
+ *  Created on: Dec 30, 2025
  *  Author: mark2v
  */
 
 #ifndef INCLUDE_ARRAY_OF_STRUCTS_H_
 #define INCLUDE_ARRAY_OF_STRUCTS_H_
 
-// From K&R book page 118.
-
-
-// Can't do it this way, must be done with unnamed way.
-//typedef struct {
-//	char *word;
-//	int count;
-//} keytab[] = {
-//	{"", 0}
-//};
-
-// Can not define this in include file because
-// it gets defined in more than one source file.
+/*
+ * Need static here because if not then because this file
+ * is included in multiple .c files, get multiple definitions
+ * of keytab.
+ *
+ * Problem with static is that it breaks encapsulation.  That's fine
+ * if that's the intent but probably not.
+ */
 //struct key {
 //	char *word;
 //	int count;
-//} keytab[] = {
-//	{ "auto", 0 }
+//} static keytab[] = {
+//	{ "auto", 0},
+//	{ "break", 0 },
+//	{ "case", 0 },
+//	{ "char", 0 }
 //};
 
+//#define NUM_KEYS (sizeof(keytab) / sizeof(keytab[0]))
+
+
+
 /***********************************************************************
- * NAME:		test_array_structs()
+ * NAME:		test_array_of_structs()
  *
- * DESCRIPTION:	Tests an array of structures.
- *
+ * DESCRIPTION:	Runs various tests using an array of structures.
  *
  */
-void test_array_structs();
+void test_array_of_structs();
 
 #endif /* INCLUDE_ARRAY_OF_STRUCTS_H_ */
