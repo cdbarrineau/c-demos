@@ -18,9 +18,6 @@
 
 int main() {
 
-
-
-
 //	test_fcn_ptr(0);
 //	test_fcn_ptr(1);
 
@@ -66,7 +63,8 @@ int main() {
 //	test_const_ptr();
 //	test_const_arr_itens_and_ptr();
 
-	test_mod_str_in_function();
+//	test_mod_str_in_function();
+//	test_mod_malloc_str_in_function();
 
 	return 0;
 }

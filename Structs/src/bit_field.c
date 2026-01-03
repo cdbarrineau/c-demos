@@ -41,6 +41,12 @@ void test_bit_field() {
 
 	// This flag is OFF.
 	print_bits(flags.second);
+
+	// Set the third bit to on.
+	flags.third = 1;
+
+	print_bits(flags.first);
+	print_bits(flags.third);
 }
 
 

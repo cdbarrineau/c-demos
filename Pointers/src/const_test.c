@@ -10,9 +10,30 @@
 
 #include "../include/const_test.h"
 
-void update_char(char* c) {
+void update_char(char *c) {
 	printf("Updating %s with c[0] = G\n", c);
 	c[0] = 'G';
+}
+
+/*
+ * Called to attempt to change the address of a
+ * char * const.  Since only a copy of the pointer
+ * is passed, once this function returns the assignment
+ * from nc to c will not remain and the calling function
+ * will retain the original value.
+ */
+void change_const_ptr_address(char *c) {
+
+//	char *tmp = c;
+
+	// For this test, this is leaked but don't care as
+	// just testing.
+	char *nc = (char*)malloc(sizeof(char) * 8);
+	strncpy(nc, "Changed", 8);
+
+//	free(tmp);
+
+	c = nc;
 }
 
 /***********************************************************************
@@ -23,7 +44,8 @@ void update_char(char* c) {
  */
 void quick_const_test() {
 
-	printf("*********  char test  *********\n");
+	printf("*********  quick_const_test  *********\n");
+
 	/******************************************************
 	 * Defining it this way allocates the string in writeable
 	 * memory so can do anything.
@@ -40,7 +62,7 @@ void quick_const_test() {
 	memcpy(arr1, arr2, 5);
 
 	// Prints: "Goodb, World!"
-	printf("after memccpy: arr1 = %s\n", arr1);
+	printf("after memccpy: arr1 = %s\n\n", arr1);
 
 
 
@@ -50,6 +72,7 @@ void quick_const_test() {
 	 *
  	 */
 	char *c0 = "Zero";
+	printf("Can't change a char* assigned to read-only like char *c = \"Hello\"\n");
 	// Can't do this, core dumps.  Does NOT cause
 	// any compiler warnings, just UB.
 //	update_char(c0);
@@ -58,8 +81,9 @@ void quick_const_test() {
 
 	char* c01 = (char*)malloc(sizeof(char) * 6);
 	snprintf(c01, 6, "Zero2");
+	printf("malloc'd original with snprintf: c01 = %s\n", c01);
 	c01[0] = 'L';
-	printf("c01 = %s\n", c01);
+	printf("malloc'd after changing c01[0] = 'L' = %s\n\n", c01);
 
 	/******************************************************
 	 * Can reassign pointer but not the chars in the array.
@@ -68,9 +92,9 @@ void quick_const_test() {
 	const char *c1 = "One";
 	// Can't do this as the contents read-only.
 //	c1[0] = 'T';
-	// This causes a seg fault.
+	// This causes a seg fault because it's read-only memory (string constant of "One").
 //	update_char(c1);
-	printf("c1 = %s\n", c1);
+	printf("const char *c1 = %s\n", c1);
 
 	const char *c11 = "OneOne";
 	c1 = c11;
@@ -89,7 +113,7 @@ void quick_const_test() {
 //	const char *c3 = malloc(sizeof(char) * 6);
 
 	char *c4 = (char*)malloc(sizeof(char) * 6);
-	snprintf(c4, 6, "Hello");
+	strncpy(c4, "Hello", 6);
 	const char *c5 = c4;
 
 	printf("c4 = %s ptr = %p\n", c4, c4);
@@ -99,6 +123,20 @@ void quick_const_test() {
 	free(c4);
 
 	printf("c5 = %s ptr = %p\n", c5, c5);
+
+	// Warning, doscards const
+//	const char *c6 = (char*)malloc(sizeof(char) * 8);
+//	strncpy(c6, "One", 4);
+//
+//	printf("c6 = %s\n", c6);
+
+	// Can't do this.
+//	c6[0] = 'U';
+
+	// But can do this because it discards the const.
+//	update_char(c6);
+//
+//	printf("AFTER update_char: %s\n", c6);
 
 	// Can not do this as it's read-only memory.
 //	c3[0] = '\0';
@@ -149,11 +187,20 @@ void quick_const_test() {
 //
 //	// Try with dynamic memory.
 //	// Can change a char with this though.
-//	char * const t3 = malloc(sizeof(char) * 6);
-//	snprintf(t3, 6, "Three");
-//	t3[0] = 'K';
-//	printf("t3 = %s\n", t3);
-//
+	char * const t3 = malloc(sizeof(char) * 6);
+	snprintf(t3, 6, "Three");
+	t3[0] = 'K';
+	printf("t3 = %s\n", t3);
+
+	// Has no effect because a copy of the pointer is being passed.
+	change_const_ptr_address(t3);
+	printf("Changed char * const: %s - %p\n", t3, t3);
+
+	// Can't do this because the pointer is const.
+//	t3 = malloc(10);
+
+	free(t3);
+
 //	// Can't do this as the const makes the pointer read-only.
 ////	t2 = t3;
 //
