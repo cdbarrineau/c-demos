@@ -12,6 +12,14 @@ extern int sp;
 extern char arr[];
 
 /***********************************************************************
+ * NAME:		test_pre_dec()
+ *
+ * DESCRIPTION:	Tests the extern when the formal definition has not
+ * 				beed made yet.
+ */
+void test_pre_dec();
+
+/***********************************************************************
  * NAME:		test_extern()
  *
  * DESCRIPTION:	Tests the extern keyword.

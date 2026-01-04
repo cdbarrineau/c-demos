@@ -16,7 +16,10 @@
  */
 void test_static_var_in_function(int i) {
 
-	static int j = 0;
+	// statics are guaranteed to be initialized to zero so no need to do it explicitly.
+	static int j; // = 0;
+
+	printf("static j = %d\n", j);
 
 	int k = i + j++;
 

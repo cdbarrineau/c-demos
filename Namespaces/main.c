@@ -9,22 +9,30 @@
 
 #include "include/externs.h"
 #include "include/statics.h"
+#include "include/macros.h"
 
 int main() {
 
-	/* Probably not a good idea to do this since arr does
-	 * have the first index set to NUL.
+	test_pre_dec();
+
+	/* externs are guaranteed to be initialized to zero (or NUL for a char array).
 	 */
-	printf("BEFORE test_extern() arr in main (not a good idea, arr is not NUL terminated yet): %s\n", arr);
+	printf("BEFORE test_extern() arr in main (extern vars are guaranteed to be init to zero): %s\n", arr);
+
+	// c == \0 so size is zero.
+	printf("length of arr: %zu\n", strlen(arr));
 
 	test_extern();
 
 	// Should be able to reference extern variables.
 	printf("AFTER text_extern() arr in main: %s\n", arr);
 
-	printf("*****  test_static_var_in_function  *****\n");
+	printf("\n*****  test_static_var_in_function  *****\n");
+	printf("static vars in a function are guaranteed to be initialized to zero.\n");
 	test_static_var_in_function(1);
 	test_static_var_in_function(1);
+
+	test_macros();
 
 	return 0;
 }
