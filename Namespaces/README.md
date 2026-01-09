@@ -68,7 +68,9 @@ Demos the different kinds of namespcaes in C along with different variable and f
     // j == 6 now since the test increments it THEN the return increments it again!
 
 ```
- * Use the # in a macro to stringify the input:
+
+### Macro Stringification
+Use the # in a macro to stringify the input:
  
 ```
     #define STRINGIFY(A) #A
@@ -82,6 +84,18 @@ Demos the different kinds of namespcaes in C along with different variable and f
     // Returns a char* that is = "void*"
 ```
 
+### Macro printing
+In order to print a macro, seems like you should use a macro to print it.
+ 
+```
+    #define PRINTF(X) printf("%s = %s\n", #X, STRINGIFY(X))
+    
+    #define TEST_FILE "test.h"
+    
+    // Prints "TEST_FILE = test.h"
+    PRINTF(TEST_FILE);
+
+```
 
 
 

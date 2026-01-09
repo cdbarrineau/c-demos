@@ -8,6 +8,30 @@
 
 #include "../include/macros.h"
 
+void test_pound_defines() {
+
+	printf("\n*****  test_pound_defines  *****\n");
+
+	// Defined as a printf macro.
+	PRINT_STUFF;
+
+	printf("void* STRINGIFY = %s\n", STRINGIFY(void*));
+
+	PRINT_MACRO(TEST_MAC);
+
+// Define a test file macro and print it.
+#define TEST_FILE "test.h"
+	PRINT_MACRO(TEST_FILE);
+
+// FNAME is set in header file.
+#ifdef FNAME
+	PRINT_MACRO(FNAME);
+#else
+	printf("FNAME not defined!\n");
+#endif
+
+}
+
 /***********************************************************************
  * NAME:		test_macros()
  *
@@ -17,10 +41,9 @@
  */
 void test_macros() {
 
-	printf("\n*****  test_macros  *****\n");
+	test_pound_defines();
 
-	// Defined as a printf macro.
-	YES;
+	printf("\n*****  test_macros  *****\n");
 
 	int i = 1;
 	int j = 2;
@@ -63,16 +86,15 @@ void test_macros() {
 	printf("s2 = %s\n", s2);
 
 
+	// This is really only used in things like auto-gen
+	// names, etc.
+	//
+	// Don't think can use variables because the macros
+	// are run on pre-processing where variables are not
+	// defined yet.
 //	int a = 1;
 //	int b = 1;
-////	int ab = 0;
-//	int ab = CONCAT(a, b);
-
-
-
-
-
-
-
+	int ab = CONCAT(1, 2);
+	printf("CONCAT %d\n", ab);
 }
 
