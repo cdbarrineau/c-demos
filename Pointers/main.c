@@ -16,7 +16,35 @@
 #include "include/function_pointers.h"
 #include "include/mod_str_in_function.h"
 
+static void print_chars(char *name) {
+	for (; *name; name++) {
+
+		printf("%c\n", *name);
+	}
+}
+
+static void print_chars_again(char *name) {
+	while (*name) {
+		printf("%c\n", (*name));
+
+		name++;
+	}
+}
+
 int main() {
+
+	char *name = "Hello";
+
+	// Since this is incrementing the pointer, need
+	// it in a separate function so that that function
+	// gets a copy of the pointer.
+	//
+	// Putting it right here, the next printf will only
+	// print the \0.
+	print_chars(name);
+	print_chars_again(name);
+
+	printf("name: %s\n", name);
 
 //	test_fcn_ptr(0);
 //	test_fcn_ptr(1);
@@ -58,7 +86,7 @@ int main() {
 //	test_char_arr_no_decay();
 //	test_str_function_decay();
 
-	quick_const_test();
+//	quick_const_test();
 //	test_const_arr_items();
 //	test_const_ptr();
 //	test_const_arr_itens_and_ptr();
