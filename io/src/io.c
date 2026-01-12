@@ -49,6 +49,8 @@ void read_std_in() {
 	size_t line_size = 0;
 	int num_items = 0;
 
+	return;
+
 	// Don't really need keep_running here since exiting in sig int handler.
 	while(num_items == 0 && keep_running) {
 		printf("Enter number of iterations: ");
