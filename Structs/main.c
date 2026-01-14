@@ -15,7 +15,7 @@ int main() {
 
 //	test_array_of_structs();
 
-	test_bit_field();
+//	test_bit_field();
 
 //	pass_by_value();
 

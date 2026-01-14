@@ -10,6 +10,14 @@
 
 #include "../include/pass_by_ref.h"
 
+struct MyStruct {
+	int i;
+};
+
+struct {
+	int i;
+} ms_two_t;
+
 void modify_pbr_struct_values(PbrStruct *s);
 void modify_pbr_struct_addr(PbrStruct *s);
 PbrStruct* modify_pbr_struct_ptr(PbrStruct *s);
@@ -23,6 +31,20 @@ void modify_pbr_struct_ptr2(PbrStruct **s);
  * 				even to the contents in the struct are not persisted.
  */
 void pass_by_ref() {
+
+	struct MyStruct ms;
+	ms.i = 10;
+
+	struct MyStruct ms2;
+	ms2.i = 20;
+
+	printf("ms.i  = %d\n", ms.i);
+	printf("ms2.i = %d\n", ms2.i);
+
+	ms_two_t.i = 90;
+
+	printf("\n");
+
 
 	printf("*****  pass_by_ref  *****\n");
 
