@@ -5,6 +5,7 @@
  *      Author: mark2v
  */
 
+#include <stdio.h>
 #include "../include/one_d_array.h"
 
 void one_d_array() {

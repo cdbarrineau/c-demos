@@ -4,7 +4,7 @@
  *  Created on: Oct 12, 2025
  *      Author: mark2v
  */
-
+#include <stdio.h>
 #include "../include/two_d_char_array.h"
 
 #define Y 5
